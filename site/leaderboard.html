@@ -7,6 +7,129 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ─── Leaderboard-specific styles ─── */
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        .filter-bar input[type="text"] {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .filter-bar input[type="text"]:focus {
+            border-color: var(--accent-primary);
+        }
+        .filter-bar input[type="text"]::placeholder {
+            color: var(--text-muted);
+        }
+        .filter-chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .chip {
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--border-subtle);
+            background: transparent;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+            user-select: none;
+        }
+        .chip:hover {
+            border-color: var(--border-accent);
+            color: var(--text-primary);
+        }
+        .chip.active {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+            color: white;
+        }
+        .sort-btn {
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--border-subtle);
+            background: transparent;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .sort-btn:hover {
+            border-color: var(--border-accent);
+            color: var(--text-primary);
+        }
+        .sort-btn.active {
+            background: rgba(99,102,241,0.15);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+        /* ─── Custom scrollbar ─── */
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-subtle);
+        }
+        .table-wrapper::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        .table-wrapper::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+            border-radius: 4px;
+        }
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        .table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(90deg, var(--accent-secondary), var(--accent-tertiary));
+        }
+        .model-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .model-icon {
+            width: 28px; height: 28px;
+            border-radius: 6px;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            flex-shrink: 0;
+        }
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+        .no-results i { font-size: 2rem; margin-bottom: 12px; display: block; }
+    </style>
 </head>
 <body>
     <canvas id="particles"></canvas>
@@ -41,39 +164,49 @@
 
     <section style="position: relative; z-index: 1; padding: 0 24px 120px; max-width: 1200px; margin: 0 auto;">
         <!-- Summary Cards -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 48px;" id="summary-cards">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px;" id="summary-cards"></div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <input type="text" id="search-input" placeholder="🔍 Search models..." />
+            <div class="filter-chips" id="backend-chips">
+                <button class="chip active" data-backend="all">All</button>
+            </div>
+            <div class="filter-chips" id="sort-chips">
+                <button class="sort-btn active" data-sort="pipeline">Score <i class="fas fa-sort-down"></i></button>
+                <button class="sort-btn" data-sort="task3">Task 3 <i class="fas fa-sort"></i></button>
+                <button class="sort-btn" data-sort="task2">Task 2 <i class="fas fa-sort"></i></button>
+                <button class="sort-btn" data-sort="resurrections">Resurrections <i class="fas fa-sort"></i></button>
+            </div>
         </div>
 
-        <!-- Main Table -->
-        <div style="overflow-x: auto;">
+        <!-- Table -->
+        <div class="table-wrapper">
             <table class="leaderboard-table" id="leaderboard-table">
                 <thead>
                     <tr>
                         <th>Rank</th>
                         <th>Model</th>
                         <th>Backend</th>
-                        <th>Task 0</th>
-                        <th>Task 1</th>
-                        <th>Task 2</th>
-                        <th>Task 3</th>
-                        <th>Task 4</th>
-                        <th>Task 5</th>
+                        <th>T0 Setup</th>
+                        <th>T1 Lexer</th>
+                        <th>T2 Parser</th>
+                        <th>T3 IR Gen</th>
+                        <th>T4 IR Opt</th>
+                        <th>T5 Asm</th>
                         <th>Pipeline</th>
-                        <th>Resurrections</th>
-                        <th>Tokens</th>
-                        <th>Time</th>
+                        <th>🔄</th>
                     </tr>
                 </thead>
-                <tbody id="leaderboard-body">
-                </tbody>
+                <tbody id="leaderboard-body"></tbody>
             </table>
         </div>
 
         <div style="text-align: center; margin-top: 48px; color: var(--text-muted); font-size: 0.85rem;">
             <p>Last updated: <span id="last-updated"></span></p>
             <p style="margin-top: 8px;">
-                Results generated with <a href="https://github.com/Nexa-Language/EvoBench" style="color: var(--accent-primary);">EvoBench</a>
-                using OpenHands SDK and OpenAI-compatible APIs.
+                Powered by <a href="https://github.com/Nexa-Language/EvoBench" style="color: var(--accent-primary);">EvoBench</a>
+                using OpenHands SDK with infinite self-loop iteration.
             </p>
         </div>
     </section>
@@ -94,75 +227,175 @@
         </div>
     </footer>
 
-    <script src="assets/js/particles.min.js"></script>
     <script src="assets/js/main.js"></script>
     <script>
+    let DATA = [];
+    let currentSort = 'pipeline';
+    let currentBackend = 'all';
+    let searchQuery = '';
+
+    const TASK_NAMES = ['Setup', 'Lexer', 'Parser', 'IR Gen', 'IR Opt', 'Asm Gen'];
+    const TASK_KEYS = ['task0','task1','task2','task3','task4','task5'];
+
+    const MODEL_COLORS = {
+        'deepseek-v4-pro': '#4ade80',
+        'deepseek-v4-flash': '#22d3ee',
+        'qwen3.6-max-preview': '#a78bfa',
+        'glm-5.1': '#fb923c',
+        'minimax-m2.7': '#f472b6',
+        'mimo-v2.5-pro': '#818cf8',
+        'kimi-k2.6': '#fbbf24',
+        'glm-5': '#fb923c',
+    };
+
+    function getInitials(name) {
+        return name.split(/[-.]/).map(w => w[0]).join('').toUpperCase().slice(0,2);
+    }
+
+    function getColor(name) {
+        return MODEL_COLORS[name] || '#6366f1';
+    }
+
+    function renderTable(data) {
+        const tbody = document.getElementById('leaderboard-body');
+        if (!data.length) {
+            tbody.innerHTML = '<tr><td colspan="11"><div class="no-results"><i class="fas fa-search"></i>No models match your filters</div></td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = data.map((entry, i) => {
+            const rank = i + 1;
+            const rankClass = rank <= 3 ? `rank-${rank}` : 'rank-other';
+            const color = getColor(entry.model);
+
+            const taskCells = TASK_KEYS.map((k, ti) => {
+                const v = entry[k];
+                if (v === null || v === undefined) return `<td><span style="color:var(--text-muted)">—</span></td>`;
+                const cls = v >= 60 ? 'pass' : 'fail';
+                const highlight = (k === currentSort) ? ' style="font-weight:700"' : '';
+                return `<td${highlight}><span class="${cls}">${v.toFixed(1)}%</span></td>`;
+            }).join('');
+
+            return `<tr>
+                <td><span class="rank-badge ${rankClass}">${rank}</span></td>
+                <td>
+                    <div class="model-name">
+                        <div class="model-icon" style="color:${color};border:1px solid ${color}33">${getInitials(entry.model)}</div>
+                        <strong>${entry.model}</strong>
+                    </div>
+                </td>
+                <td><span style="color:var(--accent-tertiary);font-family:var(--font-mono);font-size:0.85rem">${entry.backend}</span></td>
+                ${taskCells}
+                <td>
+                    <strong>${(entry.pipeline_score||0).toFixed(1)}%</strong>
+                    <div class="score-bar"><div class="score-fill" style="width:${entry.pipeline_score||0}%"></div></div>
+                </td>
+                <td style="text-align:center">${entry.resurrections||0}</td>
+            </tr>`;
+        }).join('');
+    }
+
+    function applyFilters() {
+        let filtered = [...DATA];
+
+        // Backend filter
+        if (currentBackend !== 'all') {
+            filtered = filtered.filter(d => d.backend === currentBackend);
+        }
+
+        // Search
+        if (searchQuery) {
+            const q = searchQuery.toLowerCase();
+            filtered = filtered.filter(d => d.model.toLowerCase().includes(q) || d.backend.toLowerCase().includes(q));
+        }
+
+        // Sort
+        const sortKey = currentSort === 'pipeline' ? 'pipeline_score' :
+                        currentSort === 'resurrections' ? 'resurrections' :
+                        currentSort;
+        filtered.sort((a, b) => {
+            const va = a[sortKey] ?? -1;
+            const vb = b[sortKey] ?? -1;
+            if (sortKey === 'resurrections') return va - vb; // ascending
+            return vb - va; // descending
+        });
+
+        renderTable(filtered);
+    }
+
     fetch('assets/data/leaderboard.json')
         .then(r => r.json())
         .then(data => {
-            const tbody = document.getElementById('leaderboard-body');
-            const summaryCards = document.getElementById('summary-cards');
+            DATA = data;
             let latestDate = '';
 
             // Summary
             const totalModels = data.length;
             const bestScore = Math.max(...data.map(d => d.pipeline_score || 0));
-            const totalTokens = data.reduce((s, d) => s + (d.tokens || 0), 0);
+            const avgRes = (data.reduce((s, d) => s + (d.resurrections || 0), 0) / totalModels).toFixed(1);
 
-            summaryCards.innerHTML = `
-                <div class="feature-card" style="text-align: center;">
+            document.getElementById('summary-cards').innerHTML = `
+                <div class="feature-card" style="text-align:center">
                     <div class="stat-value">${totalModels}</div>
                     <div class="stat-label">Models Evaluated</div>
                 </div>
-                <div class="feature-card" style="text-align: center;">
+                <div class="feature-card" style="text-align:center">
                     <div class="stat-value">${bestScore.toFixed(1)}%</div>
                     <div class="stat-label">Best Pipeline Score</div>
                 </div>
-                <div class="feature-card" style="text-align: center;">
-                    <div class="stat-value">${(totalTokens / 1000).toFixed(0)}K</div>
-                    <div class="stat-label">Total Tokens Used</div>
+                <div class="feature-card" style="text-align:center">
+                    <div class="stat-value">${avgRes}</div>
+                    <div class="stat-label">Avg Resurrections</div>
                 </div>
-                <div class="feature-card" style="text-align: center;">
+                <div class="feature-card" style="text-align:center">
                     <div class="stat-value">6</div>
                     <div class="stat-label">Serial Tasks</div>
                 </div>
             `;
 
-            // Table rows
-            data.sort((a, b) => (b.pipeline_score || 0) - (a.pipeline_score || 0));
-            data.forEach((entry, i) => {
-                if (entry.date > latestDate) latestDate = entry.date;
-                const rank = i + 1;
-                const rankClass = rank <= 3 ? `rank-${rank}` : 'rank-other';
-                const tasks = [entry.task0, entry.task1, entry.task2, entry.task3, entry.task4, entry.task5];
-
-                const taskCells = tasks.map(t => {
-                    if (t === null || t === undefined) return '<td style="color: var(--text-muted);">—</td>';
-                    const cls = t >= 60 ? 'pass' : 'fail';
-                    return `<td><span class="${cls}">${t.toFixed(1)}%</span></td>`;
-                }).join('');
-
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><span class="rank-badge ${rankClass}">${rank}</span></td>
-                    <td><strong>${entry.model}</strong></td>
-                    <td><span style="color: var(--accent-tertiary); font-family: var(--font-mono); font-size: 0.85rem;">${entry.backend}</span></td>
-                    ${taskCells}
-                    <td><strong>${(entry.pipeline_score || 0).toFixed(1)}%</strong>
-                        <div class="score-bar"><div class="score-fill" style="width: ${entry.pipeline_score || 0}%"></div></div>
-                    </td>
-                    <td>${entry.resurrections || 0}</td>
-                    <td style="font-family: var(--font-mono); font-size: 0.85rem;">${((entry.tokens || 0) / 1000).toFixed(0)}K</td>
-                    <td style="font-family: var(--font-mono); font-size: 0.85rem;">${(entry.elapsed || 0).toFixed(0)}s</td>
-                `;
-                tbody.appendChild(row);
+            // Backend chips
+            const backends = [...new Set(data.map(d => d.backend))];
+            const chipsEl = document.getElementById('backend-chips');
+            backends.forEach(b => {
+                const chip = document.createElement('button');
+                chip.className = 'chip';
+                chip.dataset.backend = b;
+                chip.textContent = b;
+                chipsEl.appendChild(chip);
             });
 
+            // Bind events
+            document.getElementById('search-input').addEventListener('input', e => {
+                searchQuery = e.target.value;
+                applyFilters();
+            });
+
+            document.querySelectorAll('.chip[data-backend]').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    document.querySelectorAll('.chip[data-backend]').forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    currentBackend = chip.dataset.backend;
+                    applyFilters();
+                });
+            });
+
+            document.querySelectorAll('.sort-btn[data-sort]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentSort = btn.dataset.sort;
+                    applyFilters();
+                });
+            });
+
+            data.forEach(d => { if (d.date > latestDate) latestDate = d.date; });
             document.getElementById('last-updated').textContent = latestDate || 'N/A';
+
+            applyFilters();
         })
-        .catch(err => {
+        .catch(() => {
             document.getElementById('leaderboard-body').innerHTML =
-                '<tr><td colspan="13" style="text-align:center;padding:40px;color:var(--text-muted);">No data available yet. Run some evaluations first!</td></tr>';
+                '<tr><td colspan="11"><div class="no-results"><i class="fas fa-exclamation-triangle"></i>No data available</div></td></tr>';
         });
     </script>
 </body>
