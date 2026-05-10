@@ -23,21 +23,34 @@ env/
 .env
 !.env.example
 
-# EvoBench output
-evobench_output/
+# EvoBench output (eval results stay in repo for leaderboard)
+eval/logs/
+eval/workspaces/
+eval_workspaces/
 
-# YatCC build artifacts
-YatCC/build/
-YatCC/antlr/source/
-YatCC/antlr/build/
-YatCC/llvm/build/
-YatCC/llvm/llvm/
-YatCC/llvm/clang/
-YatCC/llvm/cmake/
-YatCC/llvm/*.tar.xz
-YatCC/pybind11/source/
-YatCC/pybind11/build/
-YatCC/pybind11/*.zip
+# Build artifacts in data/YatCC
+data/YatCC/build/
+data/YatCC/build_debug/
+data/YatCC/build.sh
+data/YatCC/*.out
+data/YatCC/*.txt
+data/YatCC/test_*.c
+data/YatCC/temp_*.c
+data/YatCC/task/1/flex/*.o
+data/YatCC/task/1/flex/task1
+data/YatCC/task/1/flex/lex.yy.*
+data/YatCC/task/1/flex/lex.l.cc
+data/YatCC/task/1/flex/lex.l.hh
+data/YatCC/task/1/flex/lex.l.o
+data/YatCC/task/1/flex/lex.o
+data/YatCC/task/1/flex/main.o
+data/YatCC/output.json
+data/YatCC/clang.out
+data/YatCC/my_*
+data/YatCC/test_simple.ll
+
+# Data submodules managed separately
+data/YatCC-docs/
 
 # OS
 .DS_Store
@@ -47,21 +60,19 @@ Thumbs.db
 *.log
 logs/
 
-# Build artifacts in data/YatCC
-data/YatCC/build/
-data/YatCC/build_debug/
-data/YatCC/*.out
-data/YatCC/*.txt
-data/YatCC/test_*.c
-data/YatCC/temp_*.c
-data/YatCC/task/1/flex/*.o
-data/YatCC/task/1/flex/task1
-data/YatCC/task/1/flex/lex.yy.*
+# Docker
+Dockerfile.evo
+docker-compose.evo.yml
 
-# Eval workspaces
-eval_workspaces/
-
-# Legacy files
-.idea.md
-plans/evobench-implementation-plan.md
-plans/evo-cli-architecture.md
+# Legacy / internal files
+idea.md
+evobench_runner/
+plans/
+EvoBench-paper/
+__pycache__/
+run_benchmark.py
+run_openhands.py
+run_parallel_evals.sh
+eval_models.txt
+pyproject.toml
+ROADMAP.md

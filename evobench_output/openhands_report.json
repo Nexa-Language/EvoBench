@@ -1,9 +1,9 @@
 {
   "benchmark": "EvoBench-v2",
   "agent_backend": "openhands",
-  "agent_model": "glm-5",
-  "timestamp": "2026-05-10T14:36:44Z",
-  "total_elapsed_seconds": 7707.502606391907,
+  "agent_model": "deepseek-v4-pro",
+  "timestamp": "2026-05-10T11:19:14Z",
+  "total_elapsed_seconds": 7408.4148626327515,
   "tasks": [
     {
       "task_id": 0,
@@ -12,7 +12,7 @@
       "passed": true,
       "test_count": 1,
       "passed_count": 1,
-      "elapsed_seconds": 767.8849277496338,
+      "elapsed_seconds": 49.298468828201294,
       "backend": "openhands"
     },
     {
@@ -22,7 +22,7 @@
       "passed": true,
       "test_count": 73,
       "passed_count": 73,
-      "elapsed_seconds": 201.51825046539307,
+      "elapsed_seconds": 2713.837703227997,
       "backend": "openhands"
     },
     {
@@ -32,7 +32,7 @@
       "passed": true,
       "test_count": 73,
       "passed_count": 73,
-      "elapsed_seconds": 178.26205492019653,
+      "elapsed_seconds": 206.5870909690857,
       "backend": "openhands"
     },
     {
@@ -42,7 +42,7 @@
       "passed": true,
       "test_count": 73,
       "passed_count": 73,
-      "elapsed_seconds": 2464.793041706085,
+      "elapsed_seconds": 1808.8716340065002,
       "backend": "openhands"
     },
     {
@@ -52,7 +52,7 @@
       "passed": false,
       "test_count": 0,
       "passed_count": 0,
-      "elapsed_seconds": 1680.6952953338623,
+      "elapsed_seconds": 1193.5914289951324,
       "backend": "openhands"
     },
     {
@@ -61,7 +61,7 @@
       "max_score": 100,
       "passed": false,
       "resurrected": true,
-      "elapsed_seconds": 3709.6630239486694,
+      "elapsed_seconds": 2332.77791762352,
       "backend": "openhands"
     },
     {
@@ -71,7 +71,7 @@
       "passed": false,
       "test_count": 0,
       "passed_count": 0,
-      "elapsed_seconds": 249.44344472885132,
+      "elapsed_seconds": 200.26754879951477,
       "backend": "openhands"
     },
     {
@@ -80,7 +80,7 @@
       "max_score": 100,
       "passed": false,
       "resurrected": true,
-      "elapsed_seconds": 385.3810787200928,
+      "elapsed_seconds": 297.0418574810028,
       "backend": "openhands"
     }
   ],

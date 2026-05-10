@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""通用 CLI Agent Runner — 支持 gemini/claude/codex/kimi 后端。
+"""通用 CLI Agent Runner — 支持 Claude Code / Codex CLI / Gemini CLI / Kimi CLI。
 
-让各种 CLI Agent 在 YatCC 工作区中自主编码，然后评测。
+这些都是真正的 coding agent，有完整的文件编辑和命令执行能力。
+关键是使用它们的自主模式（非 --print 单次对话模式）。
 
 用法:
+    python run_cli_agent.py --backend claude --tasks 0-5
+    python run_cli_agent.py --backend codex --tasks 0-5
     python run_cli_agent.py --backend gemini --tasks 0-5
-    python run_cli_agent.py --backend claude --tasks 0-3
-    python run_cli_agent.py --backend codex --tasks 0-3
-    python run_cli_agent.py --backend kimi --tasks 0-3
+    python run_cli_agent.py --backend kimi --tasks 0-5
 """
 
 from __future__ import annotations
@@ -67,17 +68,32 @@ def build_prompt(task_id: int) -> str:
 
 
 def run_cli_agent(backend: str, task_id: int, workspace: Path) -> dict:
-    """运行 CLI Agent 解决一个 Task。"""
+    """运行 CLI Agent 解决一个 Task。
+
+    关键：使用各 CLI 的自主模式，而不是 --print 单次对话模式。
+    - Claude Code: claude -p "prompt" (自主模式，自动编辑文件)
+    - Codex CLI: codex --full-auto "prompt" (完全自主)
+    - Gemini CLI: gemini -p "prompt" -d workspace -y (确认模式)
+    - Kimi CLI: kimi chat "prompt" (自主模式)
+    """
     prompt = build_prompt(task_id)
     t_start = time.time()
 
-    if backend == "gemini":
-        cmd = ["gemini", "-p", prompt, "-d", str(workspace), "-y"]
-    elif backend == "claude":
-        cmd = ["claude", "--print", "--output-format", "text", "--max-turns", "100", "-p", prompt]
+    env = os.environ.copy()
+    # 确保使用正确的 API 配置
+    env.setdefault("OPENAI_API_BASE", "https://aihub.arcsysu.cn/v1")
+
+    if backend == "claude":
+        # Claude Code 自主模式：-p 是 prompt，会自动读写文件和执行命令
+        cmd = ["claude", "-p", prompt, "--max-turns", "100"]
     elif backend == "codex":
+        # Codex CLI 完全自主模式
         cmd = ["codex", "--full-auto", prompt]
+    elif backend == "gemini":
+        # Gemini CLI 自主模式：-y 确认所有操作
+        cmd = ["gemini", "-p", prompt, "-d", str(workspace), "-y"]
     elif backend == "kimi":
+        # Kimi CLI 自主模式
         cmd = ["kimi", "chat", "--yes", prompt]
     else:
         return {"task_id": task_id, "error": f"Unknown backend: {backend}"}
@@ -89,6 +105,7 @@ def run_cli_agent(backend: str, task_id: int, workspace: Path) -> dict:
             text=True,
             timeout=1800,  # 30 分钟
             cwd=str(workspace),
+            env=env,
         )
         elapsed = time.time() - t_start
         return {
@@ -165,9 +182,23 @@ def trigger_resurrection(failed_task: int) -> None:
                        cwd=str(YATCC_ROOT), capture_output=True, timeout=300)
 
 
+def verify_environment(workspace: Path) -> bool:
+    """验证构建环境是否正常。"""
+    print("  [环境] 验证构建环境...")
+    rc = subprocess.run(
+        ["cmake", "--build", "build", "-t", "task0"],
+        cwd=str(workspace), capture_output=True, text=True, timeout=60,
+    )
+    if rc.returncode != 0:
+        print(f"  [环境] ❌ task0 构建失败: {rc.stderr[:200]}")
+        return False
+    print("  [环境] ✅ 构建环境正常")
+    return True
+
+
 def main():
     parser = argparse.ArgumentParser(description="CLI Agent EvoBench Runner")
-    parser.add_argument("--backend", required=True, choices=["gemini", "claude", "codex", "kimi"])
+    parser.add_argument("--backend", required=True, choices=["claude", "codex", "gemini", "kimi"])
     parser.add_argument("--tasks", default="0-5")
     parser.add_argument("--resurrect", action="store_true", default=True)
     parser.add_argument("--no-resurrect", action="store_false", dest="resurrect")
@@ -198,9 +229,15 @@ def main():
     )
 
     # 生成标准答案
+    print("[初始化] 生成标准答案...")
     for ans in ["task0-answer", "task1-answer", "task2-answer", "task3-answer", "task5-answer"]:
         subprocess.run(["cmake", "--build", "build", "-t", ans],
                        cwd=str(YATCC_ROOT), capture_output=True, timeout=300)
+
+    # 验证环境
+    if not verify_environment(YATCC_ROOT):
+        print("  [环境] ❌ 环境验证失败，终止")
+        return
 
     results = []
     t_start = time.time()
@@ -212,7 +249,7 @@ def main():
 
         # Agent 编码
         agent_result = run_cli_agent(args.backend, task_id, YATCC_ROOT)
-        print(f"  Agent 完成: {agent_result.get('elapsed_seconds', 0):.0f}s")
+        print(f"  Agent 完成: {agent_result.get('elapsed_seconds', 0):.0f}s, exit={agent_result.get('exit_code', '?')}")
 
         # 构建+评测
         score = build_and_score(task_id)
