@@ -1,0 +1,98 @@
+{
+  "benchmark": "EvoBench-v2",
+  "agent_backend": "gemini",
+  "timestamp": "2026-05-10T20:33:48Z",
+  "total_elapsed_seconds": 39.94518518447876,
+  "tasks": [
+    {
+      "task_id": 0,
+      "backend": "gemini",
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "elapsed_seconds": 1.4345331192016602,
+      "agent_exit_code": 1
+    },
+    {
+      "task_id": 1,
+      "backend": "gemini",
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "elapsed_seconds": 1.4850783348083496,
+      "agent_exit_code": 1
+    },
+    {
+      "task_id": 2,
+      "backend": "gemini",
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "elapsed_seconds": 1.2237324714660645,
+      "agent_exit_code": 1
+    },
+    {
+      "task_id": 2,
+      "backend": "gemini",
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "resurrected": true,
+      "elapsed_seconds": 1.3790369033813477
+    },
+    {
+      "task_id": 3,
+      "backend": "gemini",
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "elapsed_seconds": 1.1992857456207275,
+      "agent_exit_code": 1
+    },
+    {
+      "task_id": 3,
+      "backend": "gemini",
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "resurrected": true,
+      "elapsed_seconds": 1.3311243057250977
+    },
+    {
+      "task_id": 4,
+      "backend": "gemini",
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "elapsed_seconds": 1.1268558502197266,
+      "agent_exit_code": 1
+    },
+    {
+      "task_id": 4,
+      "backend": "gemini",
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "resurrected": true,
+      "elapsed_seconds": 1.4007868766784668
+    },
+    {
+      "task_id": 5,
+      "backend": "gemini",
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "elapsed_seconds": 1.300724983215332,
+      "agent_exit_code": 1
+    },
+    {
+      "task_id": 5,
+      "backend": "gemini",
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "resurrected": true,
+      "elapsed_seconds": 1.4185850620269775
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "benchmark": "EvoBench-v2",
+  "agent_backend": "openhands",
+  "agent_model": "qwen-omni-turbo",
+  "timestamp": "2026-05-10T12:35:22Z",
+  "total_elapsed_seconds": 425.8264207839966,
+  "tasks": [
+    {
+      "task_id": 0,
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "test_count": 0,
+      "passed_count": 0,
+      "elapsed_seconds": 195.06018567085266,
+      "backend": "openhands"
+    },
+    {
+      "task_id": 1,
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "test_count": 0,
+      "passed_count": 0,
+      "elapsed_seconds": 1.9564356803894043,
+      "backend": "openhands"
+    },
+    {
+      "task_id": 2,
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "test_count": 0,
+      "passed_count": 0,
+      "elapsed_seconds": 4.462203741073608,
+      "backend": "openhands"
+    },
+    {
+      "task_id": 2,
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "resurrected": true,
+      "elapsed_seconds": 20.564292669296265,
+      "backend": "openhands"
+    },
+    {
+      "task_id": 3,
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "test_count": 0,
+      "passed_count": 0,
+      "elapsed_seconds": 57.213093757629395,
+      "backend": "openhands"
+    },
+    {
+      "task_id": 3,
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "resurrected": true,
+      "elapsed_seconds": 66.13073873519897,
+      "backend": "openhands"
+    },
+    {
+      "task_id": 4,
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "test_count": 0,
+      "passed_count": 0,
+      "elapsed_seconds": 84.60278224945068,
+      "backend": "openhands"
+    },
+    {
+      "task_id": 4,
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "resurrected": true,
+      "elapsed_seconds": 88.08924841880798,
+      "backend": "openhands"
+    },
+    {
+      "task_id": 5,
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "test_count": 0,
+      "passed_count": 0,
+      "elapsed_seconds": 50.25403118133545,
+      "backend": "openhands"
+    },
+    {
+      "task_id": 5,
+      "score": 0,
+      "max_score": 100,
+      "passed": false,
+      "resurrected": true,
+      "elapsed_seconds": 54.02523899078369,
+      "backend": "openhands"
+    }
+  ],
+  "metrics": {
+    "zero_shot_pass": false,
+    "resurrection_count": 4,
+    "total_iterations": 1000
+  }
+}

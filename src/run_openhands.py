@@ -25,8 +25,10 @@ from dotenv import load_dotenv
 # 加载环境变量
 load_dotenv(Path(__file__).parent / ".env")
 
-YATCC_ROOT = Path(__file__).parent / "YatCC"
-OUTPUT_DIR = Path(__file__).parent / "evobench_output"
+YATCC_ROOT = Path(__file__).parent.parent / "data" / "YatCC"
+if not YATCC_ROOT.exists():
+    YATCC_ROOT = Path(__file__).parent.parent / "YatCC"  # fallback
+OUTPUT_DIR = Path(__file__).parent.parent / "eval" / "results"
 OUTPUT_DIR.mkdir(exist_ok=True)
 
 # ─── OpenHands SDK ──────────────────────────────────────────────────────
@@ -63,8 +65,39 @@ def create_agent(model: str, api_base: str, api_key: str) -> Agent:
     )
 
 
+# 任务指南（精简版，从 YatCC-docs 提取）
+TASK_GUIDES = {}
+
+def _load_task_guides():
+    """加载精简版任务指南。"""
+    global TASK_GUIDES
+    # 尝试多个可能的路径
+    guide_paths = [
+        Path(__file__).parent.parent / "data" / "task_guides.md",
+        Path(__file__).parent / ".." / "data" / "task_guides.md",
+        Path("data/task_guides.md"),
+    ]
+    guide_content = ""
+    for p in guide_paths:
+        if p.exists():
+            guide_content = p.read_text(encoding="utf-8")
+            break
+
+    if not guide_content:
+        return
+
+    # 按 ## Task N 分割
+    import re
+    sections = re.split(r'^## Task (\d+):', guide_content, flags=re.MULTILINE)
+    for i in range(1, len(sections), 2):
+        task_id = int(sections[i])
+        TASK_GUIDES[task_id] = sections[i+1].strip()
+
+_load_task_guides()
+
+
 def build_task_prompt(task_id: int) -> str:
-    """为指定 Task 组装提示词。"""
+    """为指定 Task 组装提示词，包含精简版任务指南。"""
     readme_path = YATCC_ROOT / "task" / str(task_id) / "README.md"
     readme = readme_path.read_text(encoding="utf-8") if readme_path.exists() else ""
 
@@ -79,16 +112,20 @@ def build_task_prompt(task_id: int) -> str:
     score_targets = {0: "task0-score", 1: "task1-score", 2: "task2-score",
                      3: "task3-score", 4: "task4-score", 5: "task5-classic-score"}
 
+    # 注入精简版任务指南
+    guide = TASK_GUIDES.get(task_id, "")
+    guide_section = f"\n## 任务指南（关键信息）\n{guide}\n" if guide else ""
+
     prompt = f"""# Task {task_id}: 编译原理实验
 
 ## 实验说明
 {readme}
-
+{guide_section}
 ## 当前 Task 代码文件
 {chr(10).join('- ' + f for f in files)}
 
 ## 工作流程
-1. 先阅读 task/{task_id}/README.md 了解实验要求
+1. 先阅读上面的任务指南，理解输入/输出格式和评分标准
 2. 阅读 task/{task_id}/ 下的源文件，理解基础代码
 3. 编写/修改代码实现功能
 4. 编译: cmake --build build -t {build_targets.get(task_id, f'task{task_id}')}
@@ -193,7 +230,19 @@ def main():
     parser.add_argument("--max-iterations", type=int, default=50, help="每个 Task 最大迭代轮次")
     parser.add_argument("--resurrect", action="store_true", default=True, help="启用复活")
     parser.add_argument("--no-resurrect", action="store_false", dest="resurrect")
+    parser.add_argument("--workspace", default=None, help="自定义工作区路径（用于并行运行）")
     args = parser.parse_args()
+
+    # 如果指定了自定义工作区，复制 YatCC 到该目录（用于并行运行）
+    global YATCC_ROOT
+    if args.workspace:
+        ws = Path(args.workspace)
+        if not ws.exists():
+            import shutil
+            print(f"[工作区] 创建独立工作区: {ws}")
+            shutil.copytree(YATCC_ROOT, ws, symlinks=True)
+        YATCC_ROOT = ws
+        print(f"[工作区] 使用: {YATCC_ROOT}")
 
     # 解析任务范围
     tasks = []

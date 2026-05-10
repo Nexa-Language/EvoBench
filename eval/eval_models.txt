@@ -1,0 +1,6 @@
+openhands|deepseek-v4-pro
+openhands|deepseek-v4-flash
+openhands|qwen3.6-max-preview
+openhands|glm-5.1
+openhands|minimax-m2.7
+openhands|mimo-v2.5-pro

@@ -1,0 +1,75 @@
+\documentclass[11pt]{article}
+
+% Standard packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{nicefrac}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{subcaption}
+\usepackage{natbib}
+\usepackage{geometry}
+\usepackage{multirow}
+\usepackage{amsthm}
+
+% Page geometry
+\geometry{margin=1in}
+
+% Custom commands
+\newcommand{\pdAA}{\textsc{PDAA}}
+\newcommand{\react}{\textsc{ReAct}}
+\newcommand{\CoT}{\textsc{CoT}}
+\newcommand{\tot}{\textsc{ToT}}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+
+% Algorithm style
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+\title{\textbf{}}
+
+\author{
+  Anonymous Authors \\
+  Anonymous Institution \\
+  \texttt{anonymous@anonymous.org}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+\input{sections/introduction}
+\input{sections/related_work}
+\input{sections/theoretical_framework}
+\input{sections/methodology}
+\input{sections/experiments}
+\input{sections/discussion}
+
+\section*{Acknowledgments}
+This work was supported by anonymous funding.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\appendix
+\input{sections/appendix_proof}
+\input{sections/appendix_experiments}
+
+\end{document}
