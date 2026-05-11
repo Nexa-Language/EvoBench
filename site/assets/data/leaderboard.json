@@ -2,25 +2,15 @@
   {
     "model": "glm-5",
     "backend": "openhands",
-    "task0": 100.0,
+    "date": "2026-05-11",
+    "task0": 0.0,
     "task1": 100.0,
     "task2": 100.0,
     "task3": 100.0,
-    "task4": 0.0,
-    "task5": 0.0,
-    "mean_reward": 55.17,
-    "pass_score": 66.67,
-    "pipeline_score": 66.67,
+    "task4": 62.49,
+    "task5": 100.0,
+    "pipeline_score": 77.08,
     "resurrections": 1,
-    "zero_shot_pass": false,
-    "resurrected": [
-      false,
-      false,
-      false,
-      false,
-      true,
-      false
-    ],
     "rank": 1
   },
   {
@@ -48,6 +38,48 @@
     "rank": 2
   },
   {
+    "model": "kimi-k2-thinking",
+    "backend": "openhands",
+    "date": "2026-05-11",
+    "task0": 100.0,
+    "task1": 0.0,
+    "task2": 21.13,
+    "task3": 100.0,
+    "task4": 59.98,
+    "task5": 100.0,
+    "pipeline_score": 63.52,
+    "resurrections": 2,
+    "rank": 3
+  },
+  {
+    "model": "deepseek-reasoner",
+    "backend": "openhands",
+    "date": "2026-05-11",
+    "task0": 100.0,
+    "task1": 0.0,
+    "task2": 21.13,
+    "task3": 100.0,
+    "task4": 59.98,
+    "task5": 100.0,
+    "pipeline_score": 63.52,
+    "resurrections": 1,
+    "rank": 4
+  },
+  {
+    "model": "deepseek-chat",
+    "backend": "openhands",
+    "date": "2026-05-11",
+    "task0": 100.0,
+    "task1": 0.0,
+    "task2": 21.13,
+    "task3": 100.0,
+    "task4": 59.98,
+    "task5": 100.0,
+    "pipeline_score": 63.52,
+    "resurrections": 2,
+    "rank": 5
+  },
+  {
     "model": "qwen3.6-max-preview",
     "backend": "openhands",
     "task0": 100.0,
@@ -69,7 +101,7 @@
       true,
       true
     ],
-    "rank": 3
+    "rank": 6
   },
   {
     "model": "minimax-m2.7",
@@ -93,7 +125,21 @@
       true,
       true
     ],
-    "rank": 4
+    "rank": 7
+  },
+  {
+    "model": "glm-4-7",
+    "backend": "openhands",
+    "date": "2026-05-11",
+    "task0": 0.0,
+    "task1": 0.0,
+    "task2": 61.98,
+    "task3": 100.0,
+    "task4": 59.97,
+    "task5": 100.0,
+    "pipeline_score": 53.66,
+    "resurrections": 1,
+    "rank": 8
   },
   {
     "model": "minimax-m2.5",
@@ -117,7 +163,7 @@
       true,
       true
     ],
-    "rank": 5
+    "rank": 9
   },
   {
     "model": "qwen3.5-plus-2026-02-15",
@@ -141,7 +187,7 @@
       true,
       true
     ],
-    "rank": 6
+    "rank": 10
   },
   {
     "model": "qwen3.6-flash",
@@ -165,7 +211,7 @@
       true,
       true
     ],
-    "rank": 7
+    "rank": 11
   },
   {
     "model": "glm-4.7",
@@ -189,31 +235,7 @@
       false,
       false
     ],
-    "rank": 8
-  },
-  {
-    "model": "qwen3.6-plus",
-    "backend": "openhands",
-    "task0": 0.0,
-    "task1": 100.0,
-    "task2": 100.0,
-    "task3": 93.0,
-    "task4": 0.0,
-    "task5": 0.0,
-    "mean_reward": 45.27,
-    "pass_score": 50.0,
-    "pipeline_score": 48.83,
-    "resurrections": 0,
-    "zero_shot_pass": false,
-    "resurrected": [
-      false,
-      false,
-      false,
-      false,
-      false,
-      false
-    ],
-    "rank": 9
+    "rank": 12
   },
   {
     "model": "deepseek-v4-flash",
@@ -237,31 +259,31 @@
       true,
       true
     ],
-    "rank": 10
+    "rank": 13
   },
   {
-    "model": "deepseek-reasoner",
+    "model": "qwen3.6-plus",
     "backend": "openhands",
     "task0": 0.0,
     "task1": 100.0,
-    "task2": 21.1,
-    "task3": 100.0,
+    "task2": 100.0,
+    "task3": 93.0,
     "task4": 0.0,
     "task5": 0.0,
-    "mean_reward": 36.49,
-    "pass_score": 33.33,
-    "pipeline_score": 36.85,
-    "resurrections": 1,
+    "mean_reward": 45.27,
+    "pass_score": 50.0,
+    "pipeline_score": 48.83,
+    "resurrections": 0,
     "zero_shot_pass": false,
     "resurrected": [
       false,
       false,
-      true,
+      false,
       false,
       false,
       false
     ],
-    "rank": 11
+    "rank": 14
   },
   {
     "model": "glm-5.1",
@@ -285,31 +307,7 @@
       true,
       true
     ],
-    "rank": 12
-  },
-  {
-    "model": "kimi-k2-thinking",
-    "backend": "openhands",
-    "task0": 0.0,
-    "task1": 0.0,
-    "task2": 0.0,
-    "task3": 100.0,
-    "task4": 0.0,
-    "task5": 0.0,
-    "mean_reward": 20.45,
-    "pass_score": 16.67,
-    "pipeline_score": 16.67,
-    "resurrections": 2,
-    "zero_shot_pass": false,
-    "resurrected": [
-      false,
-      false,
-      true,
-      false,
-      false,
-      false
-    ],
-    "rank": 13
+    "rank": 15
   },
   {
     "model": "mimo-v2.5-pro",
@@ -333,31 +331,7 @@
       true,
       true
     ],
-    "rank": 14
-  },
-  {
-    "model": "deepseek-chat",
-    "backend": "openhands",
-    "task0": 0.0,
-    "task1": 100.0,
-    "task2": 0.0,
-    "task3": 0.0,
-    "task4": 0.0,
-    "task5": 0.0,
-    "mean_reward": 13.33,
-    "pass_score": 16.67,
-    "pipeline_score": 16.67,
-    "resurrections": 0,
-    "zero_shot_pass": false,
-    "resurrected": [
-      false,
-      false,
-      false,
-      false,
-      false,
-      false
-    ],
-    "rank": 15
+    "rank": 16
   },
   {
     "model": "qwen-omni-turbo",
@@ -381,7 +355,7 @@
       true,
       true
     ],
-    "rank": 16
+    "rank": 17
   },
   {
     "model": "qwen3-coder-flash",
@@ -405,7 +379,7 @@
       true,
       false
     ],
-    "rank": 17
+    "rank": 18
   },
   {
     "model": "mimo-v2.5-pro (claude)",
@@ -429,7 +403,7 @@
       true,
       true
     ],
-    "rank": 18
+    "rank": 19
   },
   {
     "model": "mimo-v2.5-pro (codex)",
@@ -453,7 +427,7 @@
       true,
       true
     ],
-    "rank": 19
+    "rank": 20
   },
   {
     "model": "mimo-v2.5-pro (gemini)",
@@ -477,7 +451,7 @@
       true,
       true
     ],
-    "rank": 20
+    "rank": 21
   },
   {
     "model": "mimo-v2.5-pro (kimi)",
@@ -501,6 +475,6 @@
       true,
       true
     ],
-    "rank": 21
+    "rank": 22
   }
 ]

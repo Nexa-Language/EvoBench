@@ -141,7 +141,10 @@ def build_task_prompt(task_id: int) -> str:
 
 def parse_score(task_id: int) -> dict:
     """解析 score.json。"""
+    # Task 4/5 的文件名是 score-classic.json，其他是 score.json
     score_json = YATCC_ROOT / f"build/test/task{task_id}/score.json"
+    if not score_json.exists():
+        score_json = YATCC_ROOT / f"build/test/task{task_id}/score-classic.json"
     if not score_json.exists():
         return {"task_id": task_id, "score": 0, "max_score": 100, "passed": False}
 
