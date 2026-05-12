@@ -1,6 +1,6 @@
 [
   {
-    "model": "kimi-k2.6-v3",
+    "model": "kimi-k2.6",
     "backend": "kimi",
     "task0": 100,
     "task1": 100,
@@ -24,7 +24,7 @@
     "rank": 1
   },
   {
-    "model": "kimi-k2.5-v1",
+    "model": "kimi-k2.5",
     "backend": "kimi",
     "task0": 100,
     "task1": 100,
@@ -97,7 +97,7 @@
     "rank": 4
   },
   {
-    "model": "kimi-k2.6-v2",
+    "model": "mimo-v2.5-pro",
     "backend": "kimi",
     "task0": 100,
     "task1": 100,
