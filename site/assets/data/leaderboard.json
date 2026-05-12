@@ -280,6 +280,31 @@
     "date": "2026-05-11"
   },
   {
+    "model": "mimo-v2.5-pro",
+    "backend": "openhands",
+    "task0": 100.0,
+    "task1": 0.0,
+    "task2": 100.0,
+    "task3": 0.0,
+    "task4": 89.0,
+    "task5": 100.0,
+    "mean_reward": 63.24,
+    "pass_score": 27.78,
+    "pipeline_score": 64.83,
+    "resurrections": 3,
+    "zero_shot_pass": false,
+    "resurrected": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "rank": 14,
+    "date": "2026-05-12"
+  },
+  {
     "model": "qwen3.6-flash",
     "backend": "openhands",
     "task0": 100.0,
@@ -301,7 +326,7 @@
       true,
       true
     ],
-    "rank": 14
+    "rank": 15
   },
   {
     "model": "glm-4.7",
@@ -325,7 +350,7 @@
       false,
       false
     ],
-    "rank": 15
+    "rank": 16
   },
   {
     "model": "qwen3.6-max-preview",
@@ -349,7 +374,7 @@
       true,
       true
     ],
-    "rank": 16
+    "rank": 17
   },
   {
     "model": "minimax-m2.7",
@@ -373,31 +398,22 @@
       true,
       true
     ],
-    "rank": 17
+    "rank": 18
   },
   {
-    "model": "mimo-v2.5-pro",
-    "backend": "openhands",
+    "model": "gpt-5.5 (codex)",
+    "backend": "codex",
     "task0": 100.0,
     "task1": 0.0,
-    "task2": 100.0,
+    "task2": 0.0,
     "task3": 0.0,
-    "task4": 0.0,
+    "task4": 95.69,
     "task5": 0.0,
-    "mean_reward": 17.24,
-    "pass_score": 27.78,
-    "pipeline_score": 33.33,
-    "resurrections": 3,
-    "zero_shot_pass": false,
-    "resurrected": [
-      true,
-      true,
-      true,
-      true,
-      true,
-      true
-    ],
-    "rank": 18
+    "resurrections": 0,
+    "date": "2026-05-12",
+    "pipeline_score": 32.62,
+    "mean_reward": 23.25,
+    "rank": 19
   },
   {
     "model": "mimo-v2.5-pro (claude)",
@@ -421,7 +437,7 @@
       true,
       true
     ],
-    "rank": 19
+    "rank": 20
   },
   {
     "model": "mimo-v2.5-pro (codex)",
@@ -445,7 +461,7 @@
       true,
       true
     ],
-    "rank": 20
+    "rank": 21
   },
   {
     "model": "mimo-v2.5-pro (gemini)",
@@ -469,7 +485,7 @@
       true,
       true
     ],
-    "rank": 21
+    "rank": 22
   },
   {
     "model": "mimo-v2.5-pro (kimi)",
@@ -493,6 +509,6 @@
       true,
       true
     ],
-    "rank": 22
+    "rank": 23
   }
 ]
