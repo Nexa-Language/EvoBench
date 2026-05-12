@@ -1,5 +1,30 @@
 [
   {
+    "model": "deepseek-v4-pro",
+    "backend": "openhands",
+    "task0": 100.0,
+    "task1": 100.0,
+    "task2": 100.0,
+    "task3": 100.0,
+    "task4": 71.3,
+    "task5": 100.0,
+    "mean_reward": 94.26,
+    "pass_score": 100.0,
+    "pipeline_score": 95.22,
+    "resurrections": 0,
+    "zero_shot_pass": false,
+    "resurrected": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "rank": 1,
+    "date": "2026-05-12"
+  },
+  {
     "model": "qwen3.6-plus",
     "backend": "openhands",
     "task0": 100.0,
@@ -21,7 +46,7 @@
       false,
       false
     ],
-    "rank": 1,
+    "rank": 2,
     "date": "2026-05-11"
   },
   {
@@ -36,7 +61,7 @@
     "task5": 100.0,
     "pipeline_score": 77.08,
     "resurrections": 1,
-    "rank": 2,
+    "rank": 3,
     "mean_reward": 85.83,
     "pass_score": 69.44
   },
@@ -62,7 +87,7 @@
       true,
       true
     ],
-    "rank": 3,
+    "rank": 4,
     "date": "2026-05-11"
   },
   {
@@ -87,7 +112,7 @@
       true,
       true
     ],
-    "rank": 4,
+    "rank": 5,
     "date": "2026-05-11"
   },
   {
@@ -102,7 +127,7 @@
     "task5": 100.0,
     "pipeline_score": 63.52,
     "resurrections": 2,
-    "rank": 5,
+    "rank": 6,
     "mean_reward": 68.15,
     "pass_score": 41.67
   },
@@ -118,7 +143,7 @@
     "task5": 100.0,
     "pipeline_score": 63.52,
     "resurrections": 2,
-    "rank": 6,
+    "rank": 7,
     "mean_reward": 68.15,
     "pass_score": 55.56
   },
@@ -134,7 +159,7 @@
     "task5": 100.0,
     "pipeline_score": 63.52,
     "resurrections": 2,
-    "rank": 7,
+    "rank": 8,
     "mean_reward": 68.15,
     "pass_score": 41.67
   },
@@ -150,7 +175,7 @@
     "task5": 100.0,
     "pipeline_score": 53.66,
     "resurrections": 1,
-    "rank": 8,
+    "rank": 9,
     "mean_reward": 66.92,
     "pass_score": 41.67
   },
@@ -176,7 +201,7 @@
       true,
       false
     ],
-    "rank": 9,
+    "rank": 10,
     "date": "2026-05-11"
   },
   {
@@ -201,32 +226,8 @@
       true,
       true
     ],
-    "rank": 10,
+    "rank": 11,
     "date": "2026-05-11"
-  },
-  {
-    "model": "deepseek-v4-pro",
-    "backend": "openhands",
-    "task0": 100.0,
-    "task1": 100.0,
-    "task2": 100.0,
-    "task3": 100.0,
-    "task4": 0.0,
-    "task5": 0.0,
-    "mean_reward": 53.33,
-    "pass_score": 55.56,
-    "pipeline_score": 66.67,
-    "resurrections": 2,
-    "zero_shot_pass": false,
-    "resurrected": [
-      true,
-      true,
-      true,
-      true,
-      true,
-      true
-    ],
-    "rank": 11
   },
   {
     "model": "qwen3.6-max-preview",
