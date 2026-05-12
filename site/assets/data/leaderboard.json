@@ -24,6 +24,31 @@
     "rank": 1
   },
   {
+    "model": "claude-sonnet-4.6",
+    "backend": "claude",
+    "task0": 100.0,
+    "task1": 100.0,
+    "task2": 100.0,
+    "task3": 98.63,
+    "task4": 94.58,
+    "task5": 100.0,
+    "resurrected": [
+      false,
+      false,
+      true,
+      true,
+      true,
+      true
+    ],
+    "resurrections": 4,
+    "mean_reward": 98.26,
+    "pass_score": 77.78,
+    "pipeline_score": 98.87,
+    "zero_shot_pass": false,
+    "date": "2026-05-12",
+    "rank": 2
+  },
+  {
     "model": "qwen3.6-flash",
     "backend": "openhands",
     "task0": 100.0,
@@ -45,7 +70,7 @@
     "pass_score": 66.67,
     "pipeline_score": 98.6,
     "zero_shot_pass": false,
-    "rank": 2
+    "rank": 3
   },
   {
     "model": "deepseek-v4-pro",
@@ -69,7 +94,7 @@
       true,
       true
     ],
-    "rank": 3
+    "rank": 4
   },
   {
     "model": "minimax-m2.7",
@@ -93,7 +118,7 @@
     "pass_score": 66.67,
     "pipeline_score": 91.88,
     "zero_shot_pass": false,
-    "rank": 4
+    "rank": 5
   },
   {
     "model": "qwen3.6-max-preview",
@@ -117,7 +142,7 @@
     "pass_score": 66.67,
     "pipeline_score": 92.0,
     "zero_shot_pass": false,
-    "rank": 5
+    "rank": 6
   },
   {
     "model": "glm-5",
@@ -141,7 +166,7 @@
       true,
       true
     ],
-    "rank": 6
+    "rank": 7
   },
   {
     "model": "qwen3.6-plus",
@@ -165,7 +190,7 @@
       true,
       true
     ],
-    "rank": 7
+    "rank": 8
   },
   {
     "model": "deepseek-v4-flash",
@@ -189,7 +214,7 @@
     "pass_score": 55.56,
     "pipeline_score": 80.45,
     "zero_shot_pass": false,
-    "rank": 8
+    "rank": 9
   },
   {
     "model": "glm-4.7",
@@ -213,7 +238,7 @@
     "pass_score": 55.56,
     "pipeline_score": 75.92,
     "zero_shot_pass": false,
-    "rank": 9
+    "rank": 10
   },
   {
     "model": "minimax-m2.5",
@@ -237,7 +262,7 @@
       true,
       true
     ],
-    "rank": 10
+    "rank": 11
   },
   {
     "model": "qwen3.5-plus-2026-02-15",
@@ -261,7 +286,7 @@
       true,
       true
     ],
-    "rank": 11
+    "rank": 12
   },
   {
     "model": "qwen3-coder-flash",
@@ -285,7 +310,7 @@
       true,
       true
     ],
-    "rank": 12
+    "rank": 13
   },
   {
     "model": "mimo-v2.5-pro",
@@ -309,7 +334,7 @@
     "pass_score": 44.44,
     "pipeline_score": 70.77,
     "zero_shot_pass": false,
-    "rank": 13
+    "rank": 14
   },
   {
     "model": "deepseek-chat",
@@ -333,7 +358,7 @@
       true,
       true
     ],
-    "rank": 14
+    "rank": 15
   },
   {
     "model": "deepseek-reasoner",
@@ -357,7 +382,7 @@
       true,
       true
     ],
-    "rank": 15
+    "rank": 16
   },
   {
     "model": "kimi-k2-thinking",
@@ -381,7 +406,7 @@
       true,
       true
     ],
-    "rank": 16
+    "rank": 17
   },
   {
     "model": "qwen-omni-turbo",
@@ -405,31 +430,6 @@
       true,
       true
     ],
-    "rank": 17
-  },
-  {
-    "model": "claude-sonnet-4.6",
-    "backend": "claude",
-    "task0": 100.0,
-    "task1": 100.0,
-    "task2": 100.0,
-    "task3": 0.0,
-    "task4": 0.0,
-    "task5": 0.0,
-    "resurrected": [
-      false,
-      false,
-      false,
-      false,
-      false,
-      false
-    ],
-    "resurrections": 0,
-    "mean_reward": 45.0,
-    "pass_score": 50.0,
-    "pipeline_score": 50.0,
-    "zero_shot_pass": false,
-    "date": "2026-05-12",
     "rank": 18
   },
   {
