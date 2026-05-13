@@ -151,7 +151,7 @@ def build_prompt(task_id: int) -> str:
 
 # ──────────────────────── CLI Agent 运行 ────────────────────────
 
-def run_cli_agent(backend: str, task_id: int, workspace: Path, timeout_sec: int = 1800) -> dict:
+def run_cli_agent(backend: str, task_id: int, workspace: Path, timeout_sec: int = 1800, model: str = "") -> dict:
     """运行 CLI Agent 解决一个 Task。"""
     prompt = build_prompt(task_id)
     t_start = time.time()
@@ -171,7 +171,7 @@ def run_cli_agent(backend: str, task_id: int, workspace: Path, timeout_sec: int 
     elif backend == "codex":
         cmd = ["codex", "exec", prompt]
     elif backend == "kimi":
-        model_flag = model_name if model_name and model_name != "kimi-unknown" else "kimi-k2.6"
+        model_flag = model if model else "kimi-k2.6"
         cmd = ["kimi", "--model", model_flag, "--yes", "-p", prompt]
     else:
         return {"task_id": task_id, "error": f"Unknown backend: {backend}"}
@@ -372,7 +372,7 @@ def main():
         print(f"{'=' * 60}")
 
         # Agent 编码
-        agent_result = run_cli_agent(args.backend, task_id, ws, timeout_sec=args.timeout)
+        agent_result = run_cli_agent(args.backend, task_id, ws, timeout_sec=args.timeout, model=model_name)
         elapsed = agent_result.get("elapsed_seconds", 0)
         exit_code = agent_result.get("exit_code", -1)
         print(f"  Agent 完成: {elapsed:.0f}s, exit={exit_code}")
@@ -399,7 +399,7 @@ def main():
         if not entry["passed"] and args.resurrect and task_id >= 2:
             print(f"  [复活] Task {task_id} 失败，触发复活...")
             trigger_resurrection(task_id, ws)
-            agent_result2 = run_cli_agent(args.backend, task_id, ws, timeout_sec=args.timeout)
+            agent_result2 = run_cli_agent(args.backend, task_id, ws, timeout_sec=args.timeout, model=model_name)
             score2 = build_and_score(task_id, ws)
             entry2 = {
                 "task_id": task_id,

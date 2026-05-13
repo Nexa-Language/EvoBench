@@ -66,6 +66,7 @@ docker-compose.evo.yml
 
 # Legacy / internal files
 idea.md
+ROADMAP.md
 evobench_runner/
 plans/
 EvoBench-paper/
@@ -75,7 +76,7 @@ run_openhands.py
 run_parallel_evals.sh
 eval_models.txt
 pyproject.toml
-ROADMAP.md-e 
+ROADMAP.md-e
 # Evaluation workspaces
 /home/agent/workspace/
--e eval_workspaces/
+eval_workspaces/
