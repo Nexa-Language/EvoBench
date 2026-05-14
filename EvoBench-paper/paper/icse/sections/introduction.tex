@@ -1,6 +1,6 @@
 \section{Introduction}
 
-Large language models have rapidly evolved from conversational assistants into autonomous software engineering agents capable of planning, implementing, debugging, and deploying complex infrastructure stacks~\citep{jimenez2024swebench,liu2024agentbench,frontiereng2026}.
+Large language models have rapidly evolved from conversational assistants into autonomous software engineering agents capable of planning, implementing, debugging, and deploying complex infrastructure stacks~\cite{jimenez2024swebench,liu2024agentbench,frontiereng2026}.
 Modern agentic development frameworks demonstrate increasingly sophisticated capabilities in repository-level code generation, multi-file reasoning, and tool orchestration.
 Yet the evaluation methodologies for these systems remain rooted in a \emph{benchmark-driven paradigm}: isolated, static, short-horizon tasks where each evaluation unit is independent and the agent is reset after every attempt.
 
@@ -15,13 +15,8 @@ We argue that the field needs to move \emph{beyond benchmarks} toward \emph{eval
 
 \textbf{Our approach.}
 We present \eva{} (Evaluating Agentic Models in Production Systems), a production-grounded evaluation framework built upon the \yatcc{} integrated platform.
-\eva{} is designed around four pillars:
-\begin{enumerate}[nosep]
-\item \textbf{Framework}: A unified evaluation architecture supporting heterogeneous LLM providers, agent SDKs (OpenHands, Claude Code, Codex CLI, Kimi CLI), and containerized execution backends, with standardized API access through \textsc{AIhub}.
-\item \textbf{Workloads}: Realistic long-horizon engineering workloads spanning compiler construction---from lexical analysis through syntax parsing, IR generation, optimization, and backend code generation---organized as serial dependency chains where each task's output becomes the next task's input. Two difficulty levels (\yatcc{} and \yatcc{}-Hard) span a spectrum from scaffolded implementation to full from-scratch construction.
-\item \textbf{Metrics}: A utility-oriented multi-dimensional evaluation system measuring end-to-end engineering quality (Mean Reward, Pass Score, Pipeline Score), deployment success, planning stability, debugging capability, execution cost (tokens, turns, retries, elapsed time), and runtime effectiveness through a five-category failure taxonomy.
-\item \textbf{Resurrection}: A controlled intervention mechanism that injects verified intermediate artifacts after task failure, decomposing cascading failure into predecessor-unreachable and downstream-incapable, enabling node-level diagnostic evaluation even when the full pipeline is broken.
-\end{enumerate}
+\eva{} provides a unified evaluation architecture supporting heterogeneous LLM providers and agent SDKs (OpenHands, Claude Code, Codex CLI, Kimi CLI) through standardized API access via \textsc{AIhub}.
+It features realistic long-horizon compiler construction workloads organized as serial dependency chains with two difficulty levels (\yatcc{} and \yatcc{}-Hard), a \resurrection{} mechanism that decomposes cascading failure into diagnostic components, and utility-oriented multi-dimensional metrics measuring both outcome quality and process efficiency.
 
 Our contributions are:
 \begin{enumerate}[nosep]

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.14)  14 MAY 2026 16:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.14)  14 MAY 2026 16:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -612,54 +612,13 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-(./sections/introduction.tex
-! Undefined control sequence.
-l.3 ...loying complex infrastructure stacks~\citep
-                                                  {jimenez2024swebench,liu20...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+(./sections/introduction.tex) (./sections/benchmark_construction.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
-Underfull \hbox (badness 4391) in paragraph at lines 3--6
-[]\OT1/ptm/m/n/10 (+20) Large lan-guage mod-els have rapidly evolved from
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3--6
-\OT1/ptm/m/n/10 (+20) con-ver-sa-tional as-sis-tants into au-tonomous soft-ware
-
- []
-
-
-Underfull \hbox (badness 3439) in paragraph at lines 3--6
-\OT1/ptm/m/n/10 (+20) en-gi-neer-ing agents ca-pa-ble of plan-ning, im-ple-ment
--ing,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3--6
-\OT1/ptm/m/n/10 (+20) de-bug-ging, and de-ploy-ing com-plex in-fras-truc-ture
- []
-
-
-Overfull \hbox (6.83618pt too wide) in paragraph at lines 3--6
-\OT1/ptm/m/n/10 (-20) stacks jimenez2024swebench,liu2024agentbench,frontiereng2
-026.
- []
-
-
-Underfull \hbox (badness 7869) in paragraph at lines 3--6
-\OT1/ptm/m/n/10 (+20) Mod-ern agen-tic de-vel-op-ment frame-works demon-strate
- []
-
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
-
-
-])
-(./sections/benchmark_construction.tex
+]
 
 LaTeX Warning: Reference `fig:architecture' on page 2 undefined on input line 1
 1.
@@ -668,15 +627,6 @@ LaTeX Warning: Reference `fig:architecture' on page 2 undefined on input line 1
 LaTeX Font Warning: Font shape `OT1/ptm/m/scit' undefined
 (Font)              using `OT1/ptm/m/sc' instead on input line 51.
 
-! Undefined control sequence.
-l.51 The original \yatcc{} workload~\citep
-                                          {yatcc2024} organizes six tasks al...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
 
 Underfull \hbox (badness 3240) in paragraph at lines 51--54
  \OT1/ptm/m/it/10 (+20) 1) \OT1/ptm/m/sc/10 (+20) YatCC\OT1/ptm/m/it/10 (+20) :
@@ -684,44 +634,43 @@ Underfull \hbox (badness 3240) in paragraph at lines 51--54
  []
 
 
-Overfull \hbox (65.71896pt too wide) in paragraph at lines 58--70
- [][] 
- []
+! LaTeX Error: \begin{table*} on input line 55 ended by \end{table}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.72 \end{table}
+                
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
 
 
 LaTeX Font Warning: Font shape `OT1/ptm/m/scit' undefined
 (Font)              using `OT1/ptm/m/sc' instead on input line 76.
 
 [2]) (./sections/evaluation_protocol.tex
-Underfull \hbox (badness 10000) in paragraph at lines 13--15
-\OT1/ptm/m/n/10 (+20) where $\OML/cmm/m/it/10 s[]$ \OT1/ptm/m/n/10 (+20) is the
- score for Task $\OML/cmm/m/it/10 i$\OT1/ptm/m/n/10 (+20) , $\OML/cmm/m/it/10 w
-[] \OT1/cmr/m/n/10 =
- []
 
+! LaTeX Error: \begin{table*} on input line 32 ended by \end{table}.
 
-Underfull \hbox (badness 10000) in paragraph at lines 13--15
-\OT1/cmr/m/n/10 [0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 05\OML/cmm/m/it/10 ; \OT1/c
-mr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 20\OML/cmm/m/it/10 ; \OT1/cmr/m/n/
-10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 20\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 0\OM
-L/cmm/m/it/10 :\OT1/cmr/m/n/10 15\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 0\OML/cmm/m
-/it/10 :\OT1/cmr/m/n/10 30\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 
-:\OT1/cmr/m/n/10 10]$ \OT1/ptm/m/n/10 (+20) are task weights
- []
-
-
-Overfull \hbox (99.7902pt too wide) in paragraph at lines 53--63
- [][] 
- []
-
-[3]
-
-LaTeX Font Warning: Font shape `OT1/ptm/m/scit' undefined
-(Font)              using `OT1/ptm/m/sc' instead on input line 85.
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.47 \end{table}
+                
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
 
 
 LaTeX Font Warning: Font shape `OT1/ptm/m/scit' undefined
-(Font)              using `OT1/ptm/m/sc' instead on input line 85.
+(Font)              using `OT1/ptm/m/sc' instead on input line 67.
+
+
+LaTeX Font Warning: Font shape `OT1/ptm/m/scit' undefined
+(Font)              using `OT1/ptm/m/sc' instead on input line 67.
 
 ) (./sections/results.tex
 Underfull \hbox (badness 2393) in paragraph at lines 42--45
@@ -734,20 +683,19 @@ Underfull \hbox (badness 6625) in paragraph at lines 42--45
 \OT1/ptm/m/n/10 (+20) (GPT-5.5/Codex, deepseek-v4-pro/OpenHands, and glm-
  []
 
-<figures/fig_resurrection_gain.png, id=179, 498.4221pt x 281.853pt>
+[3]
+<figures/fig_resurrection_gain.png, id=181, 498.4221pt x 281.853pt>
 File: figures/fig_resurrection_gain.png Graphic file (type png)
 <use figures/fig_resurrection_gain.png>
 Package pdftex.def Info: figures/fig_resurrection_gain.png  used on input line 
 54.
 (pdftex.def)             Requested size: 252.0pt x 142.50452pt.
-<figures/fig_score_heatmap.png, id=181, 553.1064pt x 354.123pt>
+ [4 <./figures/fig_resurrection_gain.png>]
+<figures/fig_score_heatmap.png, id=189, 1148.6112pt x 281.853pt>
 File: figures/fig_score_heatmap.png Graphic file (type png)
 <use figures/fig_score_heatmap.png>
 Package pdftex.def Info: figures/fig_score_heatmap.png  used on input line 75.
-(pdftex.def)             Requested size: 252.0pt x 161.34235pt.
-[4 <./figures/fig_resurrection_gain.png>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+(pdftex.def)             Requested size: 252.0pt x 61.83582pt.
 
 
 LaTeX Font Warning: Font shape `OT1/ptm/m/scit' undefined
@@ -758,269 +706,34 @@ LaTeX Font Warning: Font shape `OT1/ptm/m/scit' undefined
 (Font)              using `OT1/ptm/m/sc' instead on input line 92.
 
 
-Overfull \hbox (58.76935pt too wide) in paragraph at lines 100--114
- [][] 
- []
+! LaTeX Error: \begin{table*} on input line 97 ended by \end{table}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.116 \end{table}
+                 
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
 
 ) (./sections/process_diagnostics.tex [5 <./figures/fig_score_heatmap.png>]
-<figures/fig_cost_performance.png, id=198, 423.2613pt x 281.853pt>
+<figures/fig_cost_performance.png, id=200, 423.2613pt x 281.853pt>
 File: figures/fig_cost_performance.png Graphic file (type png)
 <use figures/fig_cost_performance.png>
 Package pdftex.def Info: figures/fig_cost_performance.png  used on input line 2
 3.
 (pdftex.def)             Requested size: 252.0pt x 167.80998pt.
-<figures/fig_failure_taxonomy.png, id=199, 498.663pt x 281.853pt>
+<figures/fig_failure_taxonomy.png, id=201, 498.663pt x 281.853pt>
 File: figures/fig_failure_taxonomy.png Graphic file (type png)
 <use figures/fig_failure_taxonomy.png>
 Package pdftex.def Info: figures/fig_failure_taxonomy.png  used on input line 3
 6.
 (pdftex.def)             Requested size: 252.0pt x 142.4357pt.
 )
-(./sections/discussion.tex [6 <./figures/fig_cost_performance.png>] [7 <./figur
-es/fig_failure_taxonomy.png>]) (./sections/related_work.tex
-! Undefined control sequence.
-l.9 SWE-bench~\citep
-                    {jimenez2024swebench} established the paradigm of evalua...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.9 ...ent than isolated function synthesis~\citep
-                                                  {chen2021codexhumaneval}.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.10 SWE-bench Verified~\citep
-                              {chowdhury2024swebenchverified} refined this w...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.10 ...d coverage to multilingual settings~\citep
-                                                  {zan2025swebenchmultilingu...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.10 ...multilingual}, longer-horizon tasks~\citep
-                                                  {deng2025swebenchpro}, mob...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.10 ...025swebenchpro}, mobile development~\citep
-                                                  {yang2025swebenchmobile}, ...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.10 ...chmobile}, and hardware engineering~\citep
-                                                  {hwbench2026}.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.11 FEA-Bench~\citep
-                     {feabench2025} extended the paradigm to feature impleme...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 8--14
-[]\OT1/ptm/b/n/10 (+20) Repository-level cod-ing bench-marks. \OT1/ptm/m/n/10 (
-+20) SWE-
- []
-
-
-Underfull \hbox (badness 6725) in paragraph at lines 8--14
-\OT1/ptm/m/n/10 (+20) bench jimenez2024swebench es-tab-lished the paradigm
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 8--14
-\OT1/ptm/m/n/10 (+20) SWE-bench Ver-i-fied chowd-hury2024swebenchverified
- []
-
-
-Underfull \hbox (badness 7558) in paragraph at lines 8--14
-\OT1/ptm/m/n/10 (+20) re-fined this with human-validated task spec-i-fi-ca-tion
-s,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 8--14
-\OT1/ptm/m/n/10 (+20) and sub-se-quent ex-ten-sions have broad-ened cov-er-age
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 8--14
-\OT1/ptm/m/n/10 (+20) to mul-ti-lin-gual set-tings zan2025swebenchmultilingual,
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 8--14
-\OT1/ptm/m/n/10 (+20) longer-horizon tasks deng2025swebenchpro, mo-bile
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 8--14
-\OT1/ptm/m/n/10 (+20) de-vel-op-ment yang2025swebenchmobile, and hard-ware
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 8--14
-\OT1/ptm/m/n/10 (+20) en-gi-neer-ing hw-bench2026. FEA-Bench fe-abench2025
- []
-
-! Undefined control sequence.
-l.20 AgentBench~\citep
-                      {liu2024agentbench} evaluates LLM agents across eight ...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.21 GAIA~\citep
-                {mialon2024gaia} tests general assistant competence on multi...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.22 OSWorld~\citep
-                   {xie2024osworld} and WebArena~\citep{zhou2024webarena} as...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.22 ...\citep{xie2024osworld} and WebArena~\citep
-                                                  {zhou2024webarena} assess ...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.23 Terminal-Bench~\citep
-                          {merrill2026terminalbench} provides execution-grou...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 19--26
-[]\OT1/ptm/b/n/10 (+20) Interactive agent bench-marks. \OT1/ptm/m/n/10 (+20) Ag
-ent-
- []
-
-
-Underfull \hbox (badness 1975) in paragraph at lines 19--26
-\OT1/ptm/m/n/10 (+20) Bench liu2024agentbench eval-u-ates LLM agents across
- []
-
-
-Underfull \hbox (badness 2753) in paragraph at lines 19--26
-\OT1/ptm/m/n/10 (+20) eight in-ter-ac-tive en-vi-ron-ments span-ning OS op-er-a
--tions,
- []
-
-
-Underfull \hbox (badness 2237) in paragraph at lines 19--26
-\OT1/ptm/m/n/10 (+20) databases, and web tasks. GAIA mi-alon2024gaia tests
- []
-
-
-Underfull \hbox (badness 6364) in paragraph at lines 19--26
-\OT1/ptm/m/n/10 (+20) gen-eral as-sis-tant com-pe-tence on multi-step rea-son-i
-ng
- []
-
-
-Underfull \hbox (badness 2744) in paragraph at lines 19--26
-\OT1/ptm/m/n/10 (+20) ques-tions re-quir-ing tool use. OS-World xie2024osworld
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 19--26
-\OT1/ptm/m/n/10 (+20) nav-i-ga-tion in real com-puter en-vi-ron-ments. Terminal
--
- []
-
-
-Underfull \hbox (badness 1448) in paragraph at lines 19--26
-\OT1/ptm/m/n/10 (+20) eval-u-a-tion in command-line set-tings. These bench-mark
-s
- []
-
-
-Underfull \hbox (badness 5077) in paragraph at lines 19--26
-\OT1/ptm/m/n/10 (+20) em-pha-size \OT1/ptm/m/it/10 (+20) breadth \OT1/ptm/m/n/1
-0 (+20) across di-verse in-ter-ac-tion sur-faces.
- []
-
-! Undefined control sequence.
-l.32 SkillsBench~\citep
-                       {li2026skillsbench} introduced the methodology of eva...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.33 SWE-Skills-Bench~\citep
-                            {sweskillsbench2026} applied this methodology to...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.43 Frontier-Eng~\citep
-                        {frontiereng2026} benchmarks self-evolving agents on...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
+(./sections/discussion.tex [6 <./figures/fig_cost_performance.png> <./figures/f
+ig_failure_taxonomy.png>]) (./sections/related_work.tex
 ! Misplaced alignment tab character &.
 l.43 ...arks self-evolving agents on real-world R&
                                                   D workflows.
@@ -1031,124 +744,12 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-! Undefined control sequence.
-l.44 RE-Bench~\citep
-                    {rebench2024} and PaperBench~\citep{paperbench2025} eval...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.44 ...~\citep{rebench2024} and PaperBench~\citep
-                                                  {paperbench2025} evaluate ...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.45 Voyager~\citep
-                   {wang2023voyager} demonstrated skill accumulation in Mine...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.59 SWE-bench~\citep
-                     {jimenez2024swebench} & --- & \checkmark & --- & --- & ...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.60 AgentBench~\citep
-                      {liu2024agentbench} & --- & \checkmark & --- & --- & -...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.61 GAIA~\citep
-                {mialon2024gaia} & --- & --- & --- & --- & --- & 466 \\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.62 OSWorld~\citep
-                   {xie2024osworld} & --- & \checkmark & --- & --- & --- & 3...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.63 WebArena~\citep
-                    {zhou2024webarena} & --- & \checkmark & --- & --- & --- ...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.64 Terminal-Bench~\citep
-                          {merrill2026terminalbench} & --- & \checkmark & --...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.65 SkillsBench~\citep
-                       {li2026skillsbench} & --- & \checkmark & paired & ---...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.66 RE-Bench~\citep
-                    {rebench2024} & --- & \checkmark & --- & partial & --- &...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-Overfull \hbox (142.17273pt too wide) in paragraph at lines 55--71
+[7]
+Overfull \hbox (63.1808pt too wide) in paragraph at lines 55--71
  [][] 
  []
 
-) (./sections/conclusion.tex [8]) (./main.bbl
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.24 \end{thebibliography}
-                          
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-)
+) (./sections/conclusion.tex) (./main.bbl [8])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -1170,13 +771,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 0D70DC76E2EEE0A9DE1AB7AD7444C5E4;6668.
  ) 
 Here is how much of TeX's memory you used:
- 15443 strings out of 479654
- 249304 string characters out of 5883416
- 596766 words of memory out of 5000000
- 32842 multiletter control sequences out of 15000+600000
- 531621 words of font info for 373 fonts, out of 8000000 for 9000
+ 15535 strings out of 479654
+ 250673 string characters out of 5883416
+ 593178 words of memory out of 5000000
+ 32874 multiletter control sequences out of 15000+600000
+ 536055 words of font info for 406 fonts, out of 8000000 for 9000
  309 hyphenation exceptions out of 8191
- 67i,11n,77p,1551b,474s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 67i,11n,77p,1551b,489s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -1186,16 +787,16 @@ ublic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times
-/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (9 pages, 872743 bytes).
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/ur
+w/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a
+.pfb>
+Output written on main.pdf (9 pages, 770189 bytes).
 PDF statistics:
- 309 PDF objects out of 1000 (max. 8388607)
- 255 compressed objects within 3 object streams
- 60 named destinations out of 1000 (max. 500000)
- 60701 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 356 PDF objects out of 1000 (max. 8388607)
+ 303 compressed objects within 4 object streams
+ 76 named destinations out of 1000 (max. 500000)
+ 65309 words of extra memory for PDF output out of 74296 (max. 10000000)
 

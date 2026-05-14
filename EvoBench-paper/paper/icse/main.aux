@@ -16,7 +16,9 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{jimenez2024swebench,liu2024agentbench,frontiereng2026}
 \@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{section.1}\protected@file@percent }
+\citation{yatcc2024}
 \@writefile{toc}{\contentsline {section}{\numberline {II}Framework Design}{2}{section.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-A}}Design Motivation}{2}{subsection.2.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-B}}Unified Evaluation Framework}{2}{subsection.2.2}\protected@file@percent }
@@ -26,48 +28,95 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-C}}Workloads: Compiler Construction as Realistic Evaluation}{2}{subsection.2.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {II-C}1}\textsc  {YatCC}{}: Scaffolded Implementation}{2}{subsubsection.2.3.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {II-C}2}\textsc  {YatCC}{}-Hard: Full From-Scratch Implementation}{2}{subsubsection.2.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-D}}Resurrection Protocol}{3}{subsection.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-D}}Resurrection Protocol}{2}{subsection.2.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-E}}Intermediate Artifacts and Verification}{3}{subsection.2.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {III}Metrics \& Experimental Setup}{3}{section.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Utility-Oriented Multi-Dimensional Metrics}{3}{subsection.3.1}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Agent backends used in \textsc  {EVA}{} evaluation.\relax }}{3}{table.caption.2}\protected@file@percent }
 \newlabel{tab:backends}{{II}{3}{Agent backends used in \eva {} evaluation.\relax }{table.caption.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Models and Agent Backends}{3}{subsection.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Evaluation Settings}{4}{subsection.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-D}}Workload Comparison: \textsc  {YatCC}{} vs. \textsc  {YatCC}{}-Hard}{4}{subsection.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {IV}Results \& Analysis}{4}{section.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Main Leaderboard}{4}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Evaluation Settings}{3}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-D}}Workload Comparison: \textsc  {YatCC}{} vs. \textsc  {YatCC}{}-Hard}{3}{subsection.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Results \& Analysis}{3}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Main Leaderboard}{3}{subsection.4.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces \textsc  {EVA}{} \textsc  {YatCC}{} leaderboard across 22 model configurations. \underline  {Underlined} models achieved zero-shot pipeline success (no resurrection). \textbf  {Bold} scores indicate task passing ($\geq 60\%$). MR = Mean Reward, PS = Pass Score, PL = Pipeline Score, Res = Resurrection count.\relax }}{4}{table.caption.3}\protected@file@percent }
+\newlabel{tab:main}{{III}{4}{\eva {} \yatcc {} leaderboard across 22 model configurations. \underline {Underlined} models achieved zero-shot pipeline success (no resurrection). \textbf {Bold} scores indicate task passing ($\geq 60\%$). MR = Mean Reward, PS = Pass Score, PL = Pipeline Score, Res = Resurrection count.\relax }{table.caption.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Resurrection Recovers Hidden Downstream Capability}{4}{subsection.4.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Resurrection recovers downstream evaluation signal. Without resurrection, most agents can only be evaluated at 1--2 tasks before cascading failure blocks further measurement. With resurrection, all 6 tasks become reachable, revealing hidden downstream capability.\relax }}{4}{figure.caption.4}\protected@file@percent }
 \newlabel{fig:resurrection_gain}{{1}{4}{Resurrection recovers downstream evaluation signal. Without resurrection, most agents can only be evaluated at 1--2 tasks before cascading failure blocks further measurement. With resurrection, all 6 tasks become reachable, revealing hidden downstream capability.\relax }{figure.caption.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Serial Evaluation Preserves Overall Ranking but Reveals Specific Failure Patterns}{4}{subsection.4.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces \textsc  {EVA}{} \textsc  {YatCC}{} leaderboard across 22 model configurations. \underline  {Underlined} models achieved zero-shot pipeline success (no resurrection). \textbf  {Bold} scores indicate task passing ($\geq 60\%$). MR = Mean Reward, PS = Pass Score, PL = Pipeline Score, Res = Resurrection count.\relax }}{5}{table.caption.3}\protected@file@percent }
-\newlabel{tab:main}{{III}{5}{\eva {} \yatcc {} leaderboard across 22 model configurations. \underline {Underlined} models achieved zero-shot pipeline success (no resurrection). \textbf {Bold} scores indicate task passing ($\geq 60\%$). MR = Mean Reward, PS = Pass Score, PL = Pipeline Score, Res = Resurrection count.\relax }{table.caption.3}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Per-task score matrix across 22 configurations. The heatmap reveals distinct failure patterns: some models fail at early tasks (T1/T2) while others fail at later tasks (T4), demonstrating that serial evaluation captures qualitatively different information than independent-task benchmarks.\relax }}{5}{figure.caption.5}\protected@file@percent }
 \newlabel{fig:ranking_shift}{{2}{5}{Per-task score matrix across 22 configurations. The heatmap reveals distinct failure patterns: some models fail at early tasks (T1/T2) while others fail at later tasks (T4), demonstrating that serial evaluation captures qualitatively different information than independent-task benchmarks.\relax }{figure.caption.5}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}Model--Scaffold Interaction}{5}{subsection.4.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-E}}\textsc  {YatCC}{} vs. \textsc  {YatCC}{}-Hard: The Scaffolding Gap}{5}{subsection.4.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces \textsc  {YatCC}{}-Hard leaderboard (top 8 of 18). Scores drop significantly compared to \textsc  {YatCC}{}---the best model achieves only PL=94.5 on Hard vs.\ PL=99.3 on \textsc  {YatCC}{}.\relax }}{6}{table.caption.6}\protected@file@percent }
-\newlabel{tab:hard}{{IV}{6}{\yatcc {}-Hard leaderboard (top 8 of 18). Scores drop significantly compared to \yatcc {}---the best model achieves only PL=94.5 on Hard vs.\ PL=99.3 on \yatcc {}.\relax }{table.caption.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {V}Results \& Analysis (cont.)}{6}{section.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Cost-Performance Frontier}{6}{subsection.5.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces \textsc  {YatCC}{}-Hard leaderboard (top 8 of 18). Scores drop significantly compared to \textsc  {YatCC}{}---the best model achieves only PL=94.5 on Hard vs.\ PL=99.3 on \textsc  {YatCC}{}.\relax }}{5}{table.caption.6}\protected@file@percent }
+\newlabel{tab:hard}{{IV}{5}{\yatcc {}-Hard leaderboard (top 8 of 18). Scores drop significantly compared to \yatcc {}---the best model achieves only PL=94.5 on Hard vs.\ PL=99.3 on \yatcc {}.\relax }{table.caption.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {V}Results \& Analysis (cont.)}{5}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Cost-Performance Frontier}{5}{subsection.5.1}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Cost-performance frontier: elapsed time vs.\ pipeline score. The Pareto frontier highlights configurations achieving the best performance per unit time. The 8x cost difference between similarly-scoring agents (kimi-k2-thinking at 1,909s vs.\ deepseek-reasoner at 15,987s, both PL$\approx $63.5) demonstrates that outcome-only evaluation misses critical deployment information.\relax }}{6}{figure.caption.7}\protected@file@percent }
 \newlabel{fig:cost_frontier}{{3}{6}{Cost-performance frontier: elapsed time vs.\ pipeline score. The Pareto frontier highlights configurations achieving the best performance per unit time. The 8x cost difference between similarly-scoring agents (kimi-k2-thinking at 1,909s vs.\ deepseek-reasoner at 15,987s, both PL$\approx $63.5) demonstrates that outcome-only evaluation misses critical deployment information.\relax }{figure.caption.7}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Failure Taxonomy}{6}{subsection.5.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {VI}Discussion}{6}{section.6}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-A}}Why Production-Grounded Evaluation Matters}{6}{subsection.6.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Failure taxonomy composition. Predecessor failure dominates without resurrection but is largely eliminated by resurrection, revealing the underlying task-local and execution failure distribution.\relax }}{7}{figure.caption.8}\protected@file@percent }
-\newlabel{fig:failure_taxonomy}{{4}{7}{Failure taxonomy composition. Predecessor failure dominates without resurrection but is largely eliminated by resurrection, revealing the underlying task-local and execution failure distribution.\relax }{figure.caption.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-B}}Resurrection as Methodology, Not Assistance}{7}{subsection.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-C}}Process Cost as Diagnostic Signal}{7}{subsection.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Failure taxonomy composition. Predecessor failure dominates without resurrection but is largely eliminated by resurrection, revealing the underlying task-local and execution failure distribution.\relax }}{6}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:failure_taxonomy}{{4}{6}{Failure taxonomy composition. Predecessor failure dominates without resurrection but is largely eliminated by resurrection, revealing the underlying task-local and execution failure distribution.\relax }{figure.caption.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-B}}Resurrection as Methodology, Not Assistance}{6}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-C}}Process Cost as Diagnostic Signal}{6}{subsection.6.3}\protected@file@percent }
+\citation{jimenez2024swebench}
+\citation{chen2021codexhumaneval}
+\citation{chowdhury2024swebenchverified}
+\citation{zan2025swebenchmultilingual}
+\citation{deng2025swebenchpro}
+\citation{yang2025swebenchmobile}
+\citation{hwbench2026}
+\citation{feabench2025}
+\citation{liu2024agentbench}
+\citation{mialon2024gaia}
+\citation{xie2024osworld}
+\citation{zhou2024webarena}
+\citation{merrill2026terminalbench}
+\citation{li2026skillsbench}
+\citation{sweskillsbench2026}
+\citation{frontiereng2026}
+\citation{rebench2024}
+\citation{paperbench2025}
+\citation{wang2023voyager}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-D}}The Scaffolding Gap}{7}{subsection.6.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-E}}Limitations}{7}{subsection.6.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-F}}Future Directions}{7}{subsection.6.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {VII}Related Work}{8}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {VII}Related Work}{7}{section.7}\protected@file@percent }
+\citation{jimenez2024swebench}
+\citation{liu2024agentbench}
+\citation{mialon2024gaia}
+\citation{xie2024osworld}
+\citation{zhou2024webarena}
+\citation{merrill2026terminalbench}
+\citation{li2026skillsbench}
+\citation{rebench2024}
+\bibstyle{IEEEtran}
+\bibdata{references}
+\bibcite{jimenez2024swebench}{1}
+\bibcite{liu2024agentbench}{2}
+\bibcite{frontiereng2026}{3}
+\bibcite{yatcc2024}{4}
+\bibcite{chen2021codexhumaneval}{5}
+\bibcite{chowdhury2024swebenchverified}{6}
+\bibcite{zan2025swebenchmultilingual}{7}
+\bibcite{deng2025swebenchpro}{8}
+\bibcite{yang2025swebenchmobile}{9}
+\bibcite{hwbench2026}{10}
+\bibcite{feabench2025}{11}
+\bibcite{mialon2024gaia}{12}
+\bibcite{xie2024osworld}{13}
+\bibcite{zhou2024webarena}{14}
+\bibcite{merrill2026terminalbench}{15}
+\bibcite{li2026skillsbench}{16}
+\bibcite{sweskillsbench2026}{17}
+\bibcite{rebench2024}{18}
+\bibcite{paperbench2025}{19}
+\bibcite{wang2023voyager}{20}
 \@writefile{lot}{\contentsline {table}{\numberline {V}{\ignorespaces Benchmark comparison. \text  {$\mathsurround \z@ \mathchar "458$}= supported, --- = not supported. \emph  {Serial} = tasks form a dependency chain; \emph  {Exec.} = execution-grounded scoring; \emph  {Resurr.} = resurrection mechanism; \emph  {Process} = process metrics as first-class output; \emph  {Artifact} = intermediate artifact continuity tracked.\relax }}{8}{table.caption.9}\protected@file@percent }
 \newlabel{tab:benchmark_comparison}{{V}{8}{Benchmark comparison. \checkmark = supported, --- = not supported. \emph {Serial} = tasks form a dependency chain; \emph {Exec.} = execution-grounded scoring; \emph {Resurr.} = resurrection mechanism; \emph {Process} = process metrics as first-class output; \emph {Artifact} = intermediate artifact continuity tracked.\relax }{table.caption.9}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {VIII}Conclusion}{8}{section.8}\protected@file@percent }
-\bibstyle{IEEEtran}
-\bibdata{references}
-\@writefile{toc}{\contentsline {section}{References}{9}{section*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{References}{8}{section*.10}\protected@file@percent }
 \gdef \@abspage@last{9}

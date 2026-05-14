@@ -16,12 +16,12 @@ The orchestrator maintains the serial task chain state, monitors per-task pass/f
 
 \textbf{Agent Runtime Layer.}
 Supports multiple agent frameworks through a unified interface, each representing a distinct interaction paradigm:
-\begin{itemize}[nosep]
-\item \emph{OpenHands SDK}: Full agent framework with unlimited self-loop iteration, skill injection, and MCP tool integration.
-\item \emph{Claude Code}: File I/O and command execution agent with multi-turn conversation.
-\item \emph{Codex CLI}: Autonomous coding agent with sandboxed execution.
-\item \emph{Kimi CLI}: Conversational coding agent with plan management and background task execution.
-\end{itemize}
+
+OpenHands SDK: Full agent framework with unlimited self-loop iteration, skill injection, and MCP tool integration.
+Claude Code: File I/O and command execution agent with multi-turn conversation.
+Codex CLI: Autonomous coding agent with sandboxed execution.
+Kimi CLI: Conversational coding agent with plan management and background task execution.
+
 All backends share a common task context format and produce standardized result structures, enabling direct cross-backend comparison.
 
 \textbf{Model Access Layer (\textsc{AIhub}).}
@@ -48,11 +48,11 @@ We provide two complementary workloads spanning a difficulty spectrum:
 
 \subsubsection{\yatcc{}: Scaffolded Implementation}
 
-The original \yatcc{} workload~\citep{yatcc2024} organizes six tasks along the compiler construction pipeline (Table~\ref{tab:tasks}).
+The original \yatcc{} workload~\cite{yatcc2024} organizes six tasks along the compiler construction pipeline (Table~\ref{tab:tasks}).
 Each task provides \emph{scaffolded starter code}---the agent fills in missing implementation details within a provided framework.
 This workload measures an agent's ability to \emph{complete} a partially-implemented system.
 
-\begin{table}[t]
+\begin{table*}[t]
 \centering
 \small
 \begin{tabular}{clll}

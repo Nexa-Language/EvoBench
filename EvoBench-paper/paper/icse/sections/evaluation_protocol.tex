@@ -6,31 +6,13 @@
 Evaluation metrics should measure not just \emph{whether} an agent succeeds, but \emph{how efficiently} it succeeds and \emph{how} it fails.
 
 \textbf{Outcome metrics.}
-\begin{itemize}[nosep]
-\item \emph{Mean Reward (MR)}: weighted average of task scores with resurrection bonus:
-\[
-\text{MR} = \frac{\sum_{i=0}^{5} s_i \cdot w_i \cdot b_i}{\sum_{i=0}^{5} w_i \cdot b_i}
-\]
-where $s_i$ is the score for Task~$i$, $w_i = [0.05, 0.20, 0.20, 0.15, 0.30, 0.10]$ are task weights reflecting the increasing difficulty and importance of IR optimization (Task~4), and $b_i = 1.2$ if Task~$i$ was \emph{not} resurrected (rewarding independent success) or $b_i = 1.0$ if resurrected.
-
-\item \emph{Pass Score (PS)}: weighted pass rate with resurrection penalty:
-\[
-\text{PS} = \frac{\sum_{i=0}^{5} p_i \cdot b_i^{\text{pass}}}{6 \times 1.5} \times 100
-\]
-where $p_i = 1$ if $s_i \geq 60$ else $0$, and $b_i^{\text{pass}} = 1.5$ if not resurrected, $1.0$ if resurrected.
-
-\item \emph{Pipeline Score (PL)}: simple average of task scores: $\text{PL} = \frac{1}{6}\sum_{i=0}^{5} s_i$.
-\end{itemize}
+We define three primary outcome metrics.
+\emph{Mean Reward (MR)} is the weighted average of task scores with resurrection bonus: $\text{MR} = \sum s_i w_i b_i / \sum w_i b_i$, where $w_i = [0.05, 0.20, 0.20, 0.15, 0.30, 0.10]$ and $b_i = 1.2$ (no resurrection) or $1.0$ (resurrected).
+\emph{Pass Score (PS)} is the weighted pass rate: $\text{PS} = \sum p_i b_i^{\text{pass}} / (6 \times 1.5) \times 100$, where $p_i = 1$ if $s_i \geq 60$ and $b_i^{\text{pass}} = 1.5$ (no resurrection) or $1.0$.
+\emph{Pipeline Score (PL)} is the simple average: $\text{PL} = \frac{1}{6}\sum s_i$.
 
 \textbf{Process metrics.}
-Beyond outcome scores, we record:
-\begin{itemize}[nosep]
-\item \emph{Token consumption}: total input/output tokens per run, measuring computational cost
-\item \emph{Interaction turns}: number of agent--environment exchange rounds
-\item \emph{Command executions}: shell invocations, build commands, test runs
-\item \emph{Retry count}: number of repeated build/test attempts, indicating debugging efficiency
-\item \emph{Elapsed time}: wall-clock seconds per task and total
-\end{itemize}
+Beyond outcome scores, we record token consumption, interaction turns, command executions, retry counts, and elapsed wall-clock time per task and total.
 
 \textbf{Failure taxonomy.}
 We categorize agent failures into five types:
@@ -47,7 +29,7 @@ For instance, process collapse is more prevalent in framework-based agents with 
 
 We evaluate \eva{} across 22 model configurations spanning both proprietary and open-weight LLMs, using four agent backends:
 
-\begin{table}[t]
+\begin{table*}[t]
 \centering
 \small
 \begin{tabular}{lll}

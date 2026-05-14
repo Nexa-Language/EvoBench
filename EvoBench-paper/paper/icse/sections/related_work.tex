@@ -6,9 +6,9 @@
 % Key insight to convey: EvoBench inherits execution-grounding but extends to serial dependency
 
 \textbf{Repository-level coding benchmarks.}
-SWE-bench~\citep{jimenez2024swebench} established the paradigm of evaluating agents on real GitHub issues with execution-based patch verification, demonstrating that repository-level context and test suites provide more realistic assessment than isolated function synthesis~\citep{chen2021codexhumaneval}.
-SWE-bench Verified~\citep{chowdhury2024swebenchverified} refined this with human-validated task specifications, and subsequent extensions have broadened coverage to multilingual settings~\citep{zan2025swebenchmultilingual}, longer-horizon tasks~\citep{deng2025swebenchpro}, mobile development~\citep{yang2025swebenchmobile}, and hardware engineering~\citep{hwbench2026}.
-FEA-Bench~\citep{feabench2025} extended the paradigm to feature implementation rather than bug fixing.
+SWE-bench~\cite{jimenez2024swebench} established the paradigm of evaluating agents on real GitHub issues with execution-based patch verification, demonstrating that repository-level context and test suites provide more realistic assessment than isolated function synthesis~\cite{chen2021codexhumaneval}.
+SWE-bench Verified~\cite{chowdhury2024swebenchverified} refined this with human-validated task specifications, and subsequent extensions have broadened coverage to multilingual settings~\cite{zan2025swebenchmultilingual}, longer-horizon tasks~\cite{deng2025swebenchpro}, mobile development~\cite{yang2025swebenchmobile}, and hardware engineering~\cite{hwbench2026}.
+FEA-Bench~\cite{feabench2025} extended the paradigm to feature implementation rather than bug fixing.
 These benchmarks share a core property: each task is \emph{independent}---the agent starts from a clean repository state and produces a single patch.
 \eva{} inherits the execution-grounded verification tradition but fundamentally differs by requiring agents to progress along a \emph{serial dependency chain} where intermediate artifacts accumulate across tasks.
 
@@ -17,10 +17,10 @@ These benchmarks share a core property: each task is \emph{independent}---the ag
 % Key insight: these cover breadth but not serial depth
 
 \textbf{Interactive agent benchmarks.}
-AgentBench~\citep{liu2024agentbench} evaluates LLM agents across eight interactive environments spanning OS operations, databases, and web tasks.
-GAIA~\citep{mialon2024gaia} tests general assistant competence on multi-step reasoning questions requiring tool use.
-OSWorld~\citep{xie2024osworld} and WebArena~\citep{zhou2024webarena} assess GUI and web navigation in real computer environments.
-Terminal-Bench~\citep{merrill2026terminalbench} provides execution-grounded evaluation in command-line settings.
+AgentBench~\cite{liu2024agentbench} evaluates LLM agents across eight interactive environments spanning OS operations, databases, and web tasks.
+GAIA~\cite{mialon2024gaia} tests general assistant competence on multi-step reasoning questions requiring tool use.
+OSWorld~\cite{xie2024osworld} and WebArena~\cite{zhou2024webarena} assess GUI and web navigation in real computer environments.
+Terminal-Bench~\cite{merrill2026terminalbench} provides execution-grounded evaluation in command-line settings.
 These benchmarks emphasize \emph{breadth} across diverse interaction surfaces.
 \eva{} instead emphasizes \emph{depth} along a single dependency chain, enabling precise measurement of cascading failure, intermediate artifact continuity, and process cost accumulation that broader suites cannot isolate.
 
@@ -29,8 +29,8 @@ These benchmarks emphasize \emph{breadth} across diverse interaction surfaces.
 % Key insight: paired evaluation methodology is directly relevant to our resurrection design
 
 \textbf{Paired and augmentation-oriented evaluation.}
-SkillsBench~\citep{li2026skillsbench} introduced the methodology of evaluating every task under both vanilla and skill-augmented conditions, demonstrating that augmentation efficacy is context-dependent and requires paired measurement.
-SWE-Skills-Bench~\citep{sweskillsbench2026} applied this methodology to software engineering, finding that most public skills provide negligible benefit.
+SkillsBench~\cite{li2026skillsbench} introduced the methodology of evaluating every task under both vanilla and skill-augmented conditions, demonstrating that augmentation efficacy is context-dependent and requires paired measurement.
+SWE-Skills-Bench~\cite{sweskillsbench2026} applied this methodology to software engineering, finding that most public skills provide negligible benefit.
 \eva{} adopts the paired evaluation philosophy but applies it to a different axis: \emph{with vs.\ without resurrection}, measuring how much diagnostic signal is recovered when predecessor failures are bypassed.
 This parallels SkillsBench's ``no-skill vs.\ skill'' comparison but addresses the orthogonal question of \emph{failure decomposition} rather than \emph{augmentation efficacy}.
 
@@ -40,9 +40,9 @@ This parallels SkillsBench's ``no-skill vs.\ skill'' comparison but addresses th
 
 \textbf{Long-horizon and self-evolving agent evaluation.}
 Recent work has begun examining agents over extended trajectories.
-Frontier-Eng~\citep{frontiereng2026} benchmarks self-evolving agents on real-world R&D workflows.
-RE-Bench~\citep{rebench2024} and PaperBench~\citep{paperbench2025} evaluate frontier research engineering tasks.
-Voyager~\citep{wang2023voyager} demonstrated skill accumulation in Minecraft environments.
+Frontier-Eng~\cite{frontiereng2026} benchmarks self-evolving agents on real-world R&D workflows.
+RE-Bench~\cite{rebench2024} and PaperBench~\cite{paperbench2025} evaluate frontier research engineering tasks.
+Voyager~\cite{wang2023voyager} demonstrated skill accumulation in Minecraft environments.
 These works highlight the importance of long-horizon evaluation but lack \emph{controlled intermediate state injection}---when an agent fails early, the entire trajectory is typically discarded.
 \eva{}'s resurrection mechanism provides a principled way to continue evaluation after early failure, enabling measurement of both evolutionary gain (using self-produced artifacts) and latent downstream capability (using golden artifacts).
 
@@ -56,14 +56,14 @@ Table~\ref{tab:benchmark_comparison} positions \eva{} against existing benchmark
 \toprule
 \textbf{Benchmark} & \textbf{Serial} & \textbf{Exec.} & \textbf{Resurr.} & \textbf{Process} & \textbf{Artifact} & \textbf{Tasks} \\
 \midrule
-SWE-bench~\citep{jimenez2024swebench} & --- & \checkmark & --- & --- & --- & 2.3K \\
-AgentBench~\citep{liu2024agentbench} & --- & \checkmark & --- & --- & --- & 8 envs \\
-GAIA~\citep{mialon2024gaia} & --- & --- & --- & --- & --- & 466 \\
-OSWorld~\citep{xie2024osworld} & --- & \checkmark & --- & --- & --- & 369 \\
-WebArena~\citep{zhou2024webarena} & --- & \checkmark & --- & --- & --- & 812 \\
-Terminal-Bench~\citep{merrill2026terminalbench} & --- & \checkmark & --- & --- & --- & 50 \\
-SkillsBench~\citep{li2026skillsbench} & --- & \checkmark & paired & --- & --- & 1.5K \\
-RE-Bench~\citep{rebench2024} & --- & \checkmark & --- & partial & --- & 7 \\
+SWE-bench~\cite{jimenez2024swebench} & --- & \checkmark & --- & --- & --- & 2.3K \\
+AgentBench~\cite{liu2024agentbench} & --- & \checkmark & --- & --- & --- & 8 envs \\
+GAIA~\cite{mialon2024gaia} & --- & --- & --- & --- & --- & 466 \\
+OSWorld~\cite{xie2024osworld} & --- & \checkmark & --- & --- & --- & 369 \\
+WebArena~\cite{zhou2024webarena} & --- & \checkmark & --- & --- & --- & 812 \\
+Terminal-Bench~\cite{merrill2026terminalbench} & --- & \checkmark & --- & --- & --- & 50 \\
+SkillsBench~\cite{li2026skillsbench} & --- & \checkmark & paired & --- & --- & 1.5K \\
+RE-Bench~\cite{rebench2024} & --- & \checkmark & --- & partial & --- & 7 \\
 \midrule
 \eva{} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & 6 \\
 \bottomrule
