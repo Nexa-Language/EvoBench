@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.14)  13 MAY 2026 16:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.14)  14 MAY 2026 15:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -711,40 +711,33 @@ LaTeX Font Warning: Font shape `OT1/ppl/b/scit' undefined
 File: figures/fig_resurrection_gain.png Graphic file (type png)
 <use figures/fig_resurrection_gain.png>
 Package pdftex.def Info: figures/fig_resurrection_gain.png  used on input line 
-53.
+55.
 (pdftex.def)             Requested size: 397.48499pt x 224.77737pt.
  [7 <./figures/fig_resurrection_gain.png>]
-<figures/fig_score_heatmap.png, id=240, 553.1064pt x 354.123pt>
+<figures/fig_score_heatmap.png, id=241, 553.1064pt x 354.123pt>
 File: figures/fig_score_heatmap.png Graphic file (type png)
 <use figures/fig_score_heatmap.png>
-Package pdftex.def Info: figures/fig_score_heatmap.png  used on input line 82.
+Package pdftex.def Info: figures/fig_score_heatmap.png  used on input line 76.
 (pdftex.def)             Requested size: 397.48499pt x 254.48744pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [8 <./figures/fig_score_heatmap.png>]) (./sections/process_diagnostics.tex [9]
-<figures/fig_cost_performance.png, id=256, 423.2613pt x 281.853pt>
+ [8 <./figures/fig_score_heatmap.png>]) (./sections/process_diagnostics.tex
+<figures/fig_cost_performance.png, id=251, 423.2613pt x 281.853pt>
 File: figures/fig_cost_performance.png Graphic file (type png)
 <use figures/fig_cost_performance.png>
 Package pdftex.def Info: figures/fig_cost_performance.png  used on input line 2
 3.
 (pdftex.def)             Requested size: 397.48499pt x 264.69241pt.
+ [9]
 <figures/fig_failure_taxonomy.png, id=257, 498.663pt x 281.853pt>
 File: figures/fig_failure_taxonomy.png Graphic file (type png)
 <use figures/fig_failure_taxonomy.png>
 Package pdftex.def Info: figures/fig_failure_taxonomy.png  used on input line 3
 6.
 (pdftex.def)             Requested size: 397.48499pt x 224.66556pt.
-)
-(./sections/discussion.tex
-Underfull \vbox (badness 1337) has occurred while \output is active []
+) (./sections/discussion.tex
+[10 <./figures/fig_cost_performance.png>]
+Underfull \vbox (badness 1629) has occurred while \output is active []
 
- [10 <./figures/fig_cost_performance.png>] [11 <./figures/fig_failure_taxonomy.
-png>])
-(./sections/related_work.tex
-Underfull \vbox (badness 6380) has occurred while \output is active []
-
- [12]
+ [11 <./figures/fig_failure_taxonomy.png>]) (./sections/related_work.tex [12]
 ! Misplaced alignment tab character &.
 l.43 ...arks self-evolving agents on real-world R&
                                                   D workflows.
@@ -755,8 +748,11 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-) (./sections/conclusion.tex [13]) (./main.bbl [14])
-(./sections/appendix_details.tex [15]
+) (./sections/conclusion.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13])
+(./main.bbl [14]) (./sections/appendix_details.tex [15]
 
 LaTeX Font Warning: Font shape `OT1/zi4/m/it' undefined
 (Font)              using `OT1/zi4/m/n' instead on input line 48.
@@ -768,11 +764,7 @@ LaTeX Font Info:    Font shape `OT1/zi4/m/it' will be
 LaTeX Warning: Reference `tab:full_leaderboard' on page 16 undefined on input l
 ine 8.
 
-
-Underfull \vbox (badness 1571) has occurred while \output is active []
-
- [16])
-[17] (./main.aux)
+) [16] (./main.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -785,11 +777,11 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 Here is how much of TeX's memory you used:
  16658 strings out of 479654
  265256 string characters out of 5883416
- 603635 words of memory out of 5000000
+ 606639 words of memory out of 5000000
  33900 multiletter control sequences out of 15000+600000
- 519916 words of font info for 402 fonts, out of 8000000 for 9000
+ 520085 words of font info for 403 fonts, out of 8000000 for 9000
  309 hyphenation exceptions out of 8191
- 83i,12n,131p,1499b,481s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 83i,12n,131p,1499b,483s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/share/texliv
 e/texmf-dist/fonts/enc/dvips/inconsolata/i4-ot1-0.enc}</usr/share/texlive/texmf
 -dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/share/texlive/t
@@ -803,10 +795,10 @@ o/fplmri.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols
 </usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (17 pages, 863480 bytes).
+Output written on main.pdf (16 pages, 861975 bytes).
 PDF statistics:
- 457 PDF objects out of 1000 (max. 8388607)
- 401 compressed objects within 5 object streams
- 101 named destinations out of 1000 (max. 500000)
+ 452 PDF objects out of 1000 (max. 8388607)
+ 398 compressed objects within 4 object streams
+ 100 named destinations out of 1000 (max. 500000)
  69469 words of extra memory for PDF output out of 74296 (max. 10000000)
 
