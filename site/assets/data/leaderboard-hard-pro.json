@@ -1,5 +1,19 @@
 [
   {
+    "model": "deepseek-v4-flash",
+    "task0": 100,
+    "task1": 100,
+    "task2": 63.2,
+    "task3": 100,
+    "task4": 37.63,
+    "task5": 100,
+    "mean_reward": 73.93,
+    "pipeline_score": 83.47,
+    "resurrections": 1,
+    "elapsed": 18908.97,
+    "rank": 1
+  },
+  {
     "model": "qwen3.6-plus",
     "task0": 100,
     "task1": 100,
@@ -11,7 +25,7 @@
     "pipeline_score": 57.82,
     "resurrections": 2,
     "elapsed": 10415.2,
-    "rank": 1
+    "rank": 2
   },
   {
     "model": "glm-5",
@@ -25,7 +39,7 @@
     "pipeline_score": 34.05,
     "resurrections": 4,
     "elapsed": 3618.22,
-    "rank": 2
+    "rank": 3
   },
   {
     "model": "kimi-k2.6",
@@ -39,7 +53,7 @@
     "pipeline_score": 33.33,
     "resurrections": 4,
     "elapsed": 1832.52,
-    "rank": 3
+    "rank": 4
   },
   {
     "model": "glm-5.1",
@@ -53,7 +67,35 @@
     "pipeline_score": 33.33,
     "resurrections": 4,
     "elapsed": 2158.93,
-    "rank": 4
+    "rank": 5
+  },
+  {
+    "model": "minimax-m2.5",
+    "task0": 100,
+    "task1": 56.89,
+    "task2": 0,
+    "task3": 0,
+    "task4": 0,
+    "task5": 0,
+    "mean_reward": 16.38,
+    "pipeline_score": 26.15,
+    "resurrections": 4,
+    "elapsed": 2060.94,
+    "rank": 6
+  },
+  {
+    "model": "glm-4.7",
+    "task0": 100,
+    "task1": 56.85,
+    "task2": 0,
+    "task3": 0,
+    "task4": 0,
+    "task5": 0,
+    "mean_reward": 16.37,
+    "pipeline_score": 26.14,
+    "resurrections": 4,
+    "elapsed": 3596.1,
+    "rank": 7
   },
   {
     "model": "qwen3-coder-flash",
@@ -67,7 +109,7 @@
     "pipeline_score": 25.11,
     "resurrections": 4,
     "elapsed": 543.52,
-    "rank": 5
+    "rank": 8
   },
   {
     "model": "deepseek-reasoner",
@@ -81,7 +123,7 @@
     "pipeline_score": 22.55,
     "resurrections": 4,
     "elapsed": 6767.98,
-    "rank": 6
+    "rank": 9
   },
   {
     "model": "qwen-omni-turbo",
@@ -95,7 +137,7 @@
     "pipeline_score": 0,
     "resurrections": 0,
     "elapsed": 0,
-    "rank": 7
+    "rank": 10
   },
   {
     "model": "qwen3.6-max-preview",
@@ -109,7 +151,7 @@
     "pipeline_score": 0,
     "resurrections": 0,
     "elapsed": 0,
-    "rank": 8
+    "rank": 11
   },
   {
     "model": "qwen3.6-flash",
@@ -123,7 +165,7 @@
     "pipeline_score": 0,
     "resurrections": 0,
     "elapsed": 0,
-    "rank": 9
+    "rank": 12
   },
   {
     "model": "qwen3.5-plus-2026-02-15",
@@ -137,7 +179,7 @@
     "pipeline_score": 0,
     "resurrections": 0,
     "elapsed": 0,
-    "rank": 10
+    "rank": 13
   },
   {
     "model": "minimax-m2.7",
@@ -150,22 +192,8 @@
     "mean_reward": 0,
     "pipeline_score": 0,
     "resurrections": 4,
-    "elapsed": 2216.92,
-    "rank": 11
-  },
-  {
-    "model": "minimax-m2.5",
-    "task0": 0,
-    "task1": 0,
-    "task2": 0,
-    "task3": 0,
-    "task4": 0,
-    "task5": 0,
-    "mean_reward": 0,
-    "pipeline_score": 0,
-    "resurrections": 0,
-    "elapsed": 0,
-    "rank": 12
+    "elapsed": 102.55,
+    "rank": 14
   },
   {
     "model": "mimo-v2.5-pro",
@@ -179,7 +207,7 @@
     "pipeline_score": 0,
     "resurrections": 4,
     "elapsed": 115.47,
-    "rank": 13
+    "rank": 15
   },
   {
     "model": "kimi-k2-thinking",
@@ -193,34 +221,6 @@
     "pipeline_score": 0,
     "resurrections": 4,
     "elapsed": 2190.52,
-    "rank": 14
-  },
-  {
-    "model": "glm-4.7",
-    "task0": 0,
-    "task1": 0,
-    "task2": 0,
-    "task3": 0,
-    "task4": 0,
-    "task5": 0,
-    "mean_reward": 0,
-    "pipeline_score": 0,
-    "resurrections": 0,
-    "elapsed": 0,
-    "rank": 15
-  },
-  {
-    "model": "deepseek-v4-flash",
-    "task0": 0,
-    "task1": 0,
-    "task2": 0,
-    "task3": 0,
-    "task4": 0,
-    "task5": 0,
-    "mean_reward": 0,
-    "pipeline_score": 0,
-    "resurrections": 0,
-    "elapsed": 0,
     "rank": 16
   },
   {
