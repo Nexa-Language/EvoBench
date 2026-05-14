@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.14)  14 MAY 2026 17:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.14)  14 MAY 2026 17:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -640,36 +640,10 @@ Underfull \hbox (badness 3240) in paragraph at lines 51--54
  []
 
 
-! LaTeX Error: \begin{table*} on input line 55 ended by \end{table}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.72 \end{table}
-                
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
 LaTeX Font Warning: Font shape `OT1/ptm/m/scit' undefined
 (Font)              using `OT1/ptm/m/sc' instead on input line 76.
 
 [2]) (./sections/03_metrics_and_setup.tex
-
-! LaTeX Error: \begin{table*} on input line 32 ended by \end{table}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.47 \end{table}
-                
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
 
 LaTeX Font Warning: Font shape `OT1/ptm/m/scit' undefined
 (Font)              using `OT1/ptm/m/sc' instead on input line 67.
@@ -690,12 +664,15 @@ Underfull \hbox (badness 6625) in paragraph at lines 42--45
  []
 
 [3]
-<figures/fig_resurrection_gain.png, id=177, 498.4221pt x 281.853pt>
+<figures/fig_resurrection_gain.png, id=176, 498.4221pt x 281.853pt>
 File: figures/fig_resurrection_gain.png Graphic file (type png)
 <use figures/fig_resurrection_gain.png>
 Package pdftex.def Info: figures/fig_resurrection_gain.png  used on input line 
 54.
 (pdftex.def)             Requested size: 252.0pt x 142.50452pt.
+
+Underfull \vbox (badness 3547) has occurred while \output is active []
+
  [4 <./figures/fig_resurrection_gain.png>]
 <figures/fig_score_heatmap.png, id=185, 1148.6112pt x 281.853pt>
 File: figures/fig_score_heatmap.png Graphic file (type png)
@@ -711,26 +688,13 @@ LaTeX Font Warning: Font shape `OT1/ptm/m/scit' undefined
 LaTeX Font Warning: Font shape `OT1/ptm/m/scit' undefined
 (Font)              using `OT1/ptm/m/sc' instead on input line 92.
 
-
-! LaTeX Error: \begin{table*} on input line 97 ended by \end{table}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.116 \end{table}
-                 
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-<figures/fig_cost_performance.png, id=188, 423.2613pt x 281.853pt>
+[5 <./figures/fig_score_heatmap.png>]
+<figures/fig_cost_performance.png, id=196, 423.2613pt x 281.853pt>
 File: figures/fig_cost_performance.png Graphic file (type png)
 <use figures/fig_cost_performance.png>
 Package pdftex.def Info: figures/fig_cost_performance.png  used on input line 1
 48.
 (pdftex.def)             Requested size: 252.0pt x 167.80998pt.
-[5 <./figures/fig_score_heatmap.png>]
 <figures/fig_failure_taxonomy.png, id=197, 498.663pt x 281.853pt>
 File: figures/fig_failure_taxonomy.png Graphic file (type png)
 <use figures/fig_failure_taxonomy.png>
@@ -739,7 +703,7 @@ Package pdftex.def Info: figures/fig_failure_taxonomy.png  used on input line 1
 (pdftex.def)             Requested size: 252.0pt x 142.4357pt.
 ) (./sections/05_discussion.tex [6 <./figures/fig_cost_performance.png> <./figu
 res/fig_failure_taxonomy.png>])
-(./sections/06_related_work.tex
+(./sections/06_related_work.tex [7]
 ! Misplaced alignment tab character &.
 l.43 ...arks self-evolving agents on real-world R&
                                                   D workflows.
@@ -750,21 +714,10 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-[7]
+) (./sections/07_conclusion.tex) (./main.bbl
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-! LaTeX Error: \begin{table*} on input line 52 ended by \end{table}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.73 \end{table}
-                
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-) (./sections/07_conclusion.tex) (./main.bbl)
+ [8])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -776,7 +729,9 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[8] (./main.aux)
+[9
+
+] (./main.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -784,13 +739,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 7852E42C0C1C9FC2E7D7B2C0E1982F33;6476.
  ) 
 Here is how much of TeX's memory you used:
- 15565 strings out of 479654
- 251548 string characters out of 5883416
- 594778 words of memory out of 5000000
+ 15566 strings out of 479654
+ 251554 string characters out of 5883416
+ 595778 words of memory out of 5000000
  32905 multiletter control sequences out of 15000+600000
  536055 words of font info for 406 fonts, out of 8000000 for 9000
  309 hyphenation exceptions out of 8191
- 67i,11n,77p,1551b,392s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 67i,11n,77p,1551b,495s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -806,10 +761,10 @@ ive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/ur
 w/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a
 .pfb>
-Output written on main.pdf (8 pages, 769386 bytes).
+Output written on main.pdf (9 pages, 769683 bytes).
 PDF statistics:
- 347 PDF objects out of 1000 (max. 8388607)
- 296 compressed objects within 3 object streams
- 74 named destinations out of 1000 (max. 500000)
+ 351 PDF objects out of 1000 (max. 8388607)
+ 299 compressed objects within 3 object streams
+ 75 named destinations out of 1000 (max. 500000)
  65301 words of extra memory for PDF output out of 74296 (max. 10000000)
 
