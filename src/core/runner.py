@@ -16,6 +16,7 @@ from core._prompt import TaskGuides, build_task_prompt
 from core._report import build_report, write_report
 from core._score import build_and_score, build_answers, configure_workspace
 from lib._paths import ROOT
+from lib._run_budget import format_wall_remaining_display, remaining_iterations_budget, remaining_wall_seconds
 from lib._specs import parse_tasks, safe_name
 
 
@@ -191,12 +192,17 @@ def run_openhands(args: argparse.Namespace) -> int:
                     persistence_dir=persistence_root / f"task{task_id}",
                     tags={"runid": run_id, "taskid": str(task_id), "model": args.model},
                 )
+            wall_sec = remaining_wall_seconds(output_dir)
             prompt = build_task_prompt(
                 task_id=task_id,
                 context_mode=args.context_mode,
                 workspace=workspace,
                 guides=guides,
                 pipeline_stage=stage,
+                budget_wall_display=format_wall_remaining_display(wall_sec),
+                budget_remaining_iterations=remaining_iterations_budget(
+                    output_dir, args.context_mode, args.max_iterations
+                ),
             )
             conversation.send_message(prompt)
             try:

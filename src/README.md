@@ -102,7 +102,7 @@ python src/main.py launch [可选 test-cache] [选择项] [选项]
 
 **冲突预检**：启动前对本次批次所有 `run_id` 检查「输出子目录已存在」或「名为 `oh-<run_id>` 的容器已存在」；任一冲突则**整批不启动**，退出码 `2`。
 
-**实时输出**：并行运行时在终端用 `\r` 刷新同一行，展示各 run 的额度与分数摘要（类似 tqdm 的单行更新）；单个容器结束时会换行打印 `exit_code`。
+**实时输出**：并行运行时在终端用 `\r` 刷新同一行，展示各 run 的额度、**墙钟已用/剩余**与分数摘要（格式如 `run_id: calls N/M fail K used=125s rem=3480s scores [task0,...,task5]`；未设 `--max-agent-hours` 或为 `0` 时 `rem=--`）。刷新周期由 `launch.py` 中常量 `STATUS_REFRESH_SEC` 控制（默认约 **1 秒**；可改为 `5.0` 以降低对输出目录的扫描频率）。实时行使用轻量快照（不每次 `docker inspect`、不扫全量 token 用量），`calls` 与 `openhands-events` 中的 LLM 事件对齐。**每个容器结束**时会换行打印 `exit_code`，并立刻再打印一行 `[状态]` 为当前所有已启动 run 的**最新**同格式摘要。**整批全部结束后**会再输出 `[本轮结束 · 最终状态]` 及同一格式的最终一行（不截断宽度，便于复制保存）。
 
 **Ctrl+C**：向已启动容器发送 `docker stop`；各 run 的 `exit_code` 由后台 `docker wait` 写入。
 
@@ -136,7 +136,7 @@ python src/main.py launch test-cache --model <MODEL> --tasks <TASKS> [--run-id <
 ```
 
 - 使用与 `launch` 相同的 `--output-dir`、`--api-keys`、`--context-mode`、`--max-iterations`、`--max-agent-hours`、`--dry-run` 等。
-- `--run-id` 仅用于 test-cache；未指定时自动生成 `test-cache-<safe_model>`。
+- `--run-id` 仅用于 test-cache；未指定时自动生成 `<run-prefix>-<safe_model>-tasks-<safe_tasks>`。
 
 ---
 
@@ -155,6 +155,8 @@ python src/main.py runner openhands \
   [--prompt-cache-retention <STR>]
 ```
 
+- 任务用户消息中会附带**资源预算**句：根据 `--output-dir/metadata.json` 的 `started_at` 与 `max_agent_hours` 估算剩余墙钟；**pipeline** 模式下根据 `openhands-events/pipeline.jsonl` 已出现的 `llm_response_id` 估算剩余迭代轮数；**per-task** 下每个 Task 为新对话，剩余轮数即 `--max-iterations`（见 `lib/_run_budget.py`）。
+
 辅助子命令：
 
 ```bash
@@ -165,6 +167,7 @@ python src/main.py runner emit-report --output-dir <DIR> [--model ...] [--run-id
 **`build_task_prompt` 上下文要点**（与计划一致，最终实现于 `core/_prompt.py`）：
 
 - 路径说明：`/YatCC` 文档路径与实际 workspace 等价说明。
+- **资源预算**：每次向 Agent 发送任务消息前，根据 `output_dir/metadata.json`（`started_at`、`max_agent_hours`）估算剩余墙钟，并结合 `openhands-events/pipeline.jsonl`（仅 pipeline 模式）估算已用 LLM 响应数以得到**剩余轮数**；在提示中写明「你的所剩时间为…，所剩轮数为…。你应当在当前预算下，拿到尽可能高的分数。」（逻辑见 `lib/_run_budget.py`）。
 - **per-task**：`task_guides.md` 全局前言 + 当前 Task 小节 + 当前 `task/<id>/README.md` + 文件列表 + 构建/评分目标与流程。
 - **pipeline**：首个 task 附带完整 `task_guides.md`；后续 task 仅 README + 文件列表 + 流程。
 - 发送前会去掉连续空行（压缩空行）。
@@ -224,7 +227,7 @@ python src/main.py resume <run_id> [--runs-dir <DIR>] [--dry-run]
 
 - `--dry-run`：只打印诊断信息，不启动容器。
 - **当前行为**：若 `summarize` 判定为已 `success_*` 正常结束，则直接退出；否则若 Docker 仍存在同名容器 `oh-<run_id>`，则执行 `docker start -a <容器>`；容器已删除时会报错退出。
-- `--max-iterations` / `--max-agent-hours` 为预留参数，后续可与「剩余额度」逻辑对齐。
+- `resume` 侧 `--max-iterations` / `--max-agent-hours` 仍为 CLI 预留项（见 `resume.py`）；任务提示中的墙钟/轮数预算以输出目录内 **`metadata.json`**（由首次 `launch` 写入）为准。
 
 ---
 
@@ -236,7 +239,7 @@ python src/main.py resume <run_id> [--runs-dir <DIR>] [--dry-run]
 
 ## 额度与失败 LLM 调用（概念）
 
-- **成功 LLM 调用计数**：优先来自 `base_state` 中 `token_usages` 的 `response_id` 去重；否则回退到事件流中去重 `llm_response_id` 等逻辑（见 `lib/_openhands_events.py`）。
+- **成功 LLM 调用计数**：对 `base_state` 中 `token_usages` 的 `response_id` 与 `openhands-events/*.jsonl` 中的 `llm_response_id` **分别去重**，取两者数量的**较大值**（state 写入常滞后于网关日志，避免终端「卡在」旧调用数）；若两者皆空再回退到报告 `metrics` / 事件流按模式的回合统计（见 `lib/_openhands_events.py`）。
 - **失败调用**：如 `ConversationErrorEvent` / `LLMBadRequestError` 等，用于诊断与 `failed_llm_calls` 统计，**不计入**成功调用额度。
 
 更细的公式与字段含义以代码与汇总表头为准。

@@ -13,6 +13,7 @@ from lib._openhands_events import (
     cache_hit_info,
     collect_agent_llm_rounds,
     collect_error_events,
+    collect_error_events_from_jsonl,
     collect_llm_metrics,
     read_json,
     safe_float,
@@ -209,6 +210,27 @@ def collect_one(run_dir: Path, *, include_tokens: bool = True) -> dict[str, Any]
     row["termination_status"] = term.status
     row["termination_reason"] = term.reason
     row["termination_detail"] = term.detail
+    return row
+
+
+def collect_launch_status_row(run_dir: Path) -> dict[str, Any]:
+    """供 launch 实时行使用：不跑 docker inspect、不扫 base_state 用量，降低卡顿。"""
+    metadata = read_json(run_dir / "metadata.json") if (run_dir / "metadata.json").is_file() else {}
+    report_path = run_dir / "openhands_report.json"
+    report = read_json(report_path) if report_path.is_file() else {}
+    raw_tasks = report.get("tasks")
+    tasks = [task for task in raw_tasks if isinstance(task, dict)] if isinstance(raw_tasks, list) else []
+    latest = _latest_task_entries(tasks)
+    row: dict[str, Any] = {
+        "max_iterations": metadata.get("max_iterations", ""),
+        "successful_llm_calls": successful_llm_call_count(run_dir),
+        "failed_llm_calls": 0,
+    }
+    for task_id in range(6):
+        task = latest.get(task_id, {})
+        row[f"task{task_id}"] = safe_float(task.get("score"))
+    errors = collect_error_events_from_jsonl(run_dir)
+    row["failed_llm_calls"] = len([e for e in errors if e.get("code")])
     return row
 
 

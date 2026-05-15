@@ -9,12 +9,13 @@ import signal
 import subprocess
 import sys
 import time
+from datetime import datetime
 from concurrent.futures import FIRST_COMPLETED, Future, ThreadPoolExecutor, wait
 from pathlib import Path
 from typing import Any
 
 from core.job_manage import check_conflicts
-from core.summarize import collect_one
+from core.summarize import collect_launch_status_row
 from lib import _docker
 from lib._api_keys import ApiKeyEntry, load_api_keys, select_api_key
 from lib._paths import DEFAULT_API_KEYS_FILE, DEFAULT_IMAGE, DEFAULT_MODELS_FILE, DEFAULT_RUNS_DIR, ROOT, load_api_base
@@ -26,6 +27,9 @@ from lib._specs import (
     parse_experiment_specs,
     read_experiment_file,
 )
+
+# 实时状态行刷新周期（秒）。仅唤醒 wait 以重绘；设为 5 可减轻对输出目录的扫描频率。
+STATUS_REFRESH_SEC = 1.0
 
 
 def default_cache_env(retention: str = "24h") -> dict[str, str]:
@@ -176,19 +180,66 @@ def _write_exit_code(output_dir: Path, wait_proc: subprocess.Popen[str]) -> int:
     return code
 
 
-def _status_line(runs: list[tuple[ExperimentSpec, Path]]) -> str:
-    parts = []
-    for spec, output_dir in runs:
+def _metadata_started_and_max_hours(output_dir: Path) -> tuple[float | None, int | None]:
+    """一次读取 metadata：started_at 的 Unix 时间戳、max_agent_hours。"""
+    path = output_dir / "metadata.json"
+    if not path.is_file():
+        return None, None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return None, None
+    s = str(data.get("started_at", "")).strip()
+    ts: float | None = None
+    if s:
+        if s.endswith("Z"):
+            s = s[:-1] + "+00:00"
         try:
-            row = collect_one(output_dir, include_tokens=True)
-            scores = ",".join(str(row.get(f"task{i}", "")) for i in range(6))
-            parts.append(
-                f"{spec.run_id}: calls {row.get('successful_llm_calls','?')}/{row.get('max_iterations','?')} "
-                f"fail {row.get('failed_llm_calls','?')} scores [{scores}]"
-            )
-        except Exception:
-            parts.append(f"{spec.run_id}: starting")
-    return " | ".join(parts)
+            ts = datetime.fromisoformat(s).timestamp()
+        except ValueError:
+            ts = None
+    max_h: int | None = None
+    raw = data.get("max_agent_hours")
+    if raw is not None:
+        try:
+            max_h = int(raw)
+        except (TypeError, ValueError):
+            max_h = None
+    return ts, max_h
+
+
+def _wall_used_rem_str(output_dir: Path) -> tuple[str, str]:
+    """宿主机墙钟：已用秒数、剩余秒数（无 timeout 上限时剩余为 --）。"""
+    ts, max_h = _metadata_started_and_max_hours(output_dir)
+    if ts is None:
+        return "?", "?"
+    used = int(max(0.0, time.time() - ts))
+    used_s = f"{used}s"
+    if max_h is None or max_h <= 0:
+        return used_s, "--"
+    rem = int(max_h * 3600 - used)
+    rem = max(rem, 0)
+    return used_s, f"{rem}s"
+
+
+def _status_segment(spec: ExperimentSpec, output_dir: Path) -> str:
+    try:
+        row = collect_launch_status_row(output_dir)
+        scores = ",".join(str(row.get(f"task{i}", "")) for i in range(6))
+        used_s, rem_s = _wall_used_rem_str(output_dir)
+        return (
+            f"{spec.run_id}: calls {row.get('successful_llm_calls', '?')}/{row.get('max_iterations', '?')} "
+            f"fail {row.get('failed_llm_calls', '?')} used={used_s} rem={rem_s} scores [{scores}]"
+        )
+    except Exception:
+        return f"{spec.run_id}: starting"
+
+
+def _status_line(runs: list[tuple[ExperimentSpec, Path]], *, max_width: int | None) -> str:
+    line = " | ".join(_status_segment(spec, output_dir) for spec, output_dir in runs)
+    if max_width is not None and len(line) > max_width:
+        return line[:max_width]
+    return line
 
 
 def run_batch(
@@ -244,9 +295,9 @@ def run_batch(
                     active_runs.append((spec, output_dir))
                     running[executor.submit(_write_exit_code, output_dir, wait_proc)] = (spec, output_dir, container)
                 if running:
-                    done, _ = wait(running, timeout=2.0, return_when=FIRST_COMPLETED)
+                    done, _ = wait(running, timeout=STATUS_REFRESH_SEC, return_when=FIRST_COMPLETED)
                     width = max(shutil.get_terminal_size((120, 20)).columns - 1, 20)
-                    print("\r" + _status_line(active_runs)[:width], end="", flush=True)
+                    print("\r" + _status_line(active_runs, max_width=width), end="", flush=True)
                     for future in done:
                         spec, output_dir, _container = running.pop(future)
                         try:
@@ -256,8 +307,12 @@ def run_batch(
                         if code != 0:
                             failures += 1
                         print(f"\n[结束] {spec.run_id} exit_code={code}")
+                        print("[状态]", _status_line(active_runs, max_width=None))
                 elif pending:
                     time.sleep(0.5)
+        if active_runs:
+            print("\n[本轮结束 · 最终状态]")
+            print(_status_line(active_runs, max_width=None))
     finally:
         signal.signal(signal.SIGINT, old_int)
         signal.signal(signal.SIGTERM, old_term)

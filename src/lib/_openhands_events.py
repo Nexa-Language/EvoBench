@@ -292,7 +292,43 @@ def collect_error_events(run_dir: Path) -> list[dict[str, Any]]:
     return errors
 
 
-def successful_llm_call_count(run_dir: Path) -> int:
+def collect_error_events_from_jsonl(run_dir: Path) -> list[dict[str, Any]]:
+    """与 collect_error_events 语义相近，但只扫 openhands-events/*.jsonl（适合 launch 高频刷新）。"""
+    errors: list[dict[str, Any]] = []
+    root = run_dir / "openhands-events"
+    if not root.is_dir():
+        return errors
+    for path in sorted(root.glob("*.jsonl")):
+        try:
+            with path.open(encoding="utf-8", errors="replace") as f:
+                for line in f:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    try:
+                        obj = json.loads(line)
+                    except json.JSONDecodeError:
+                        continue
+                    if not isinstance(obj, dict):
+                        continue
+                    if obj.get("kind") != "ConversationErrorEvent" and not is_failed_llm_call_event(obj):
+                        continue
+                    errors.append(
+                        {
+                            "path": str(path),
+                            "code": obj.get("code", ""),
+                            "kind": obj.get("kind", ""),
+                            "detail": str(obj.get("detail", "")),
+                            "timestamp": str(obj.get("timestamp", "")),
+                        }
+                    )
+        except OSError:
+            continue
+    return errors
+
+
+def response_ids_from_base_state_token_usages(run_dir: Path) -> set[str]:
+    """OpenHands 持久化进 base_state 的 token_usages（可能明显滞后于真实请求）。"""
     ids: set[str] = set()
     for path in sorted((run_dir / "openhands-state").rglob("base_state.json")):
         if "YatCC" in path.parts:
@@ -305,9 +341,62 @@ def successful_llm_call_count(run_dir: Path) -> int:
                     rid = usage.get("response_id")
                     if isinstance(rid, str) and rid:
                         ids.add(rid)
-    if ids:
-        return len(ids)
-    rounds = collect_agent_llm_rounds(run_dir, "", {})
+    return ids
+
+
+def response_ids_from_single_jsonl(path: Path) -> set[str]:
+    """单条 jsonl 内去重 `llm_response_id`（流式读取）。"""
+    ids: set[str] = set()
+    if not path.is_file():
+        return ids
+    try:
+        with path.open(encoding="utf-8", errors="replace") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    obj = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                if not isinstance(obj, dict):
+                    continue
+                rid = llm_response_id(obj)
+                if rid:
+                    ids.add(rid)
+    except OSError:
+        return ids
+    return ids
+
+
+def response_ids_from_openhands_event_jsonl(run_dir: Path) -> set[str]:
+    """runner 回调写入的 openhands-events/*.jsonl，通常随每次 LLM 响应追加，适合实时进度。"""
+    ids: set[str] = set()
+    root = run_dir / "openhands-events"
+    if not root.is_dir():
+        return ids
+    for path in sorted(root.glob("*.jsonl")):
+        ids |= response_ids_from_single_jsonl(path)
+    return ids
+
+
+def context_mode_from_run_metadata(run_dir: Path) -> str:
+    path = run_dir / "metadata.json"
+    if not path.is_file():
+        return ""
+    data = read_json(path)
+    return str(data.get("context_mode", "") or "")
+
+
+def successful_llm_call_count(run_dir: Path) -> int:
+    """成功 LLM 调用数：取 base_state 与事件日志两套去重 id 的较大值（避免 state 滞后导致终端卡在旧数字）。"""
+    state_ids = response_ids_from_base_state_token_usages(run_dir)
+    event_ids = response_ids_from_openhands_event_jsonl(run_dir)
+    if state_ids or event_ids:
+        return max(len(state_ids), len(event_ids))
+    report = read_json(run_dir / "openhands_report.json") if (run_dir / "openhands_report.json").is_file() else {}
+    cm = context_mode_from_run_metadata(run_dir) or str(report.get("context_mode", "") or "")
+    rounds = collect_agent_llm_rounds(run_dir, cm, report)
     value = safe_int(rounds.get("run_agent_llm_rounds"), 0)
     return int(value or 0)
 

@@ -41,6 +41,8 @@ def build_task_prompt(
     workspace: Path,
     guides: TaskGuides,
     pipeline_stage: str | None = None,
+    budget_wall_display: str,
+    budget_remaining_iterations: int,
 ) -> str:
     readme_path = workspace / "task" / str(task_id) / "README.md"
     readme = readme_path.read_text(encoding="utf-8") if readme_path.is_file() else ""
@@ -51,7 +53,14 @@ def build_task_prompt(
         f"说明：文档中的 /YatCC 等价于当前工作区 `{str(workspace).replace(chr(92), '/')}`；"
         f"`task/{task_id}/README.md` 即当前工作区下的对应路径。"
     )
+    budget_line = (
+        f"你的所剩时间为{budget_wall_display}，所剩轮数为{budget_remaining_iterations}。"
+        f"你应当在当前预算下，拿到尽可能高的分数。"
+    )
     workflow = f"""
+## 资源预算
+{budget_line}
+
 ## 工作流程
 {path_note}
 1. 阅读任务指南与 README，理解输入输出和评分标准
