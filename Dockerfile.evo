@@ -2,8 +2,23 @@
 # 基于 YatCC 依赖构建的纯净、无状态评测环境
 FROM ubuntu:24.04
 
+# 构建期代理（不在此写死地址）：在服务器上 build 时传入，供 apt/wget/pip 使用。
+# 例：docker build -f Dockerfile.evo -t evobench-openhands:latest --build-arg LLVM_BUILD_JOBS_MAX=48   --build-arg HTTP_PROXY="${HTTP_PROXY}"   --build-arg HTTPS_PROXY="${HTTPS_PROXY}"   --build-arg NO_PROXY="${NO_PROXY}"   --build-arg http_proxy="${http_proxy}"   --build-arg https_proxy="${https_proxy}"   --build-arg no_proxy="${no_proxy}"   .
+ARG HTTP_PROXY
+ARG HTTPS_PROXY
+ARG NO_PROXY
+ARG http_proxy
+ARG https_proxy
+ARG no_proxy
+ENV HTTP_PROXY=${HTTP_PROXY} \
+    HTTPS_PROXY=${HTTPS_PROXY} \
+    NO_PROXY=${NO_PROXY} \
+    http_proxy=${http_proxy} \
+    https_proxy=${https_proxy} \
+    no_proxy=${no_proxy}
+
 ENV DEBIAN_FRONTEND=noninteractive
-ENV TZ=Asia/Shanghai
+# ENV TZ=Asia/Shanghai
 
 # 安装系统依赖（参考 YatCC README.md 和 task5_setup.sh）
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -12,6 +27,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     python3-dev \
     python3-pip \
+    python3-pytest \
     cmake \
     ninja-build \
     default-jdk \
@@ -19,6 +35,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     flex \
     unzip \
     wget \
+    curl \
     lld \
     libncurses-dev \
     libzstd-dev \
@@ -31,27 +48,61 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # 安装 Python 依赖
-RUN pip3 install --break-system-packages openai python-dotenv pyyaml
+# openhands-sdk / openhands-tools 需要保持同版本；否则 tools 可能导入 SDK 中不存在的模块。
+ARG OPENHANDS_VERSION=1.22.0
+RUN pip3 install --break-system-packages --no-cache-dir --upgrade \
+    openai \
+    python-dotenv \
+    pyyaml \
+    "openhands-sdk==${OPENHANDS_VERSION}" \
+    "openhands-tools==${OPENHANDS_VERSION}" && \
+    python3 - <<'PY'
+from openhands.sdk import LLM, Agent, Conversation, Tool
+from openhands.sdk.utils.path import is_host_absolute_path, to_posix_path
+from openhands.tools.terminal import TerminalTool
+from openhands.tools.file_editor import FileEditorTool
+from openhands.tools.task_tracker import TaskTrackerTool
+
+print("OpenHands import check passed")
+PY
 
 # 设置工作目录
 WORKDIR /workspace/YatCC
 
 # 预构建 ANTLR 和 LLVM（分层缓存，加速后续启动）
-# 这些在 COPY YatCC 之后执行，利用 Docker 层缓存
-COPY YatCC/antlr/setup.sh ./antlr/setup.sh
+# 源码位于仓库 data/YatCC（与 README / evo_cli 一致）
+COPY data/YatCC/antlr/setup.sh ./antlr/setup.sh
 RUN cd antlr && bash setup.sh
 
-COPY YatCC/llvm/setup.sh ./llvm/setup.sh
-RUN cd llvm && bash setup.sh
+COPY data/YatCC/llvm/setup.sh ./llvm/setup.sh
+# LLVM：setup.sh 默认只拉取官方单体包 llvm-project-18.1.8.src.tar.xz（减少代理上多次 SSL）。
+# 离线/免下载：将上述文件放到 data/YatCC/llvm/ 后取消下一行 COPY（勿将大文件提交 git）。
+# 镜像基址：--build-arg LLVM_PROJECT_RELEASE_BASE=https://…/llvmorg-18.1.8（该目录下须有同名 .tar.xz）。
+# COPY data/YatCC/llvm/llvm-project-18.1.8.src.tar.xz ./llvm/
+ARG LLVM_PROJECT_RELEASE_BASE
+ENV LLVM_PROJECT_RELEASE_BASE=${LLVM_PROJECT_RELEASE_BASE}
+# LLVM 默认 -j 32 / PARALLEL_COMPILE_JOBS=32 易 OOM；取 min(nproc, LLVM_BUILD_JOBS_MAX)。
+# 小内存机器保持默认 8；大内存服务器可：--build-arg LLVM_BUILD_JOBS_MAX=16（或 24/32，按内存约 2～4GiB/编译任务估算）。
+ARG LLVM_BUILD_JOBS_MAX=8
+RUN set -e; \
+  J=$(nproc); \
+  M="${LLVM_BUILD_JOBS_MAX}"; \
+  [ -z "$M" ] && M=8; \
+  [ "$M" -lt 1 ] && M=1; \
+  [ "$J" -gt "$M" ] && J="$M"; \
+  sed -i \
+    -e "s/-j 32/-j $J/" \
+    -e "s/LLVM_PARALLEL_COMPILE_JOBS=32/LLVM_PARALLEL_COMPILE_JOBS=$J/" \
+    llvm/setup.sh && \
+  cd llvm && bash setup.sh
 
-COPY YatCC/pybind11/setup.sh ./pybind11/setup.sh
+COPY data/YatCC/pybind11/setup.sh ./pybind11/setup.sh
 RUN cd pybind11 && bash setup.sh
 
-COPY YatCC/task5_setup.sh ./
-RUN bash task5_setup.sh
+# task5_setup 会对仓库根目录跑 cmake -S，需要先有 CMakeLists.txt 等完整源码
+COPY data/YatCC/ ./
 
-# 复制完整 YatCC 源码
-COPY YatCC/ ./
+# RUN bash task5_setup.sh
 
-# 默认命令：保持容器运行
+# 默认命令：交互 shell（compose 中可覆盖为 sleep infinity）
 CMD ["/bin/bash"]
