@@ -92,8 +92,8 @@ python src/main.py launch [可选 test-cache] [选择项] [选项]
 | 选项                         | 说明                                                  |
 | -------------------------- | --------------------------------------------------- |
 | `--models-file`            | 默认 `models.json`                                    |
-| `--api-keys`               | 默认仓库根 `_api_keys.local.md`（Markdown 表四列：名字、模型、Key、base_url；每行须含非空 base_url） |
-| `--image`                  | **常规 `launch` 必填** Docker 镜像；未指定则不启动评测 job。`launch test-cache` 可不填，缺省为 `evobench-openhands:latest` |
+| `--api-keys`               | 默认优先仓库根 `api_keys.local.md`，否则 `_api_keys.local.md`（Markdown 表四列：名字、模型、Key、base_url；每行须含非空 base_url） |
+| `--image`                  | **常规 `launch` 必填** Docker 镜像；未指定则不启动评测 job。`launch test-cache` 可不填，缺省为 `evobench-openhands:bachelor` |
 | `--output-dir`             | run 根目录，默认 `eval/container-runs`                    |
 | `--tasks`                  | 仅作用于「未在 spec 中写 tasks」的模型展开，默认 `0-5`                |
 | `--max-iterations`         | 传入容器内 runner，默认 `200`                               |
@@ -167,7 +167,7 @@ python src/main.py runner openhands \
   [--prompt-cache-retention <STR>]
 ```
 
-- **`--api-keys`**：默认 `_api_keys.local.md`；`base_url` 必须在该表对应模型行中填写，**不再**从 `OPENAI_API_BASE` 读取。`OPENAI_API_KEY` 仍由 `launch` 注入容器环境。
+- **`--api-keys`**：默认优先 `api_keys.local.md`，否则 `_api_keys.local.md`；`base_url` 必须在该表对应模型行中填写，**不再**从 `OPENAI_API_BASE` 读取。`OPENAI_API_KEY` 仍由 `launch` 注入容器环境。
 - 任务用户消息中会附带**资源预算**句：根据 `--output-dir/metadata.json` 的 `started_at` 与 `max_agent_hours` 估算剩余墙钟；**pipeline** 模式下根据 `openhands-events/pipeline.jsonl` 已出现的 `llm_response_id` 估算剩余迭代轮数；**per-task** 下每个 Task 为新对话，剩余轮数即 `--max-iterations`（见 `lib/_run_budget.py`）。
 
 辅助子命令：

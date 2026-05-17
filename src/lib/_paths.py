@@ -18,8 +18,21 @@ ROOT = find_repo_root()
 DEFAULT_RUNS_DIR = ROOT / "eval" / "container-runs"
 DEFAULT_SUMMARY_PREFIX = ROOT / "eval" / "container-runs-summary"
 DEFAULT_MODELS_FILE = ROOT / "models.json"
-DEFAULT_API_KEYS_FILE = ROOT / "_api_keys.local.md"
-DEFAULT_IMAGE = "evobench-openhands:latest"
+
+
+def _resolve_default_api_keys_file(root: Path) -> Path:
+    """优先使用生产环境常见的 `api_keys.local.md`，否则回退到 `_api_keys.local.md`。"""
+    primary = root / "api_keys.local.md"
+    legacy = root / "_api_keys.local.md"
+    if primary.is_file():
+        return primary
+    if legacy.is_file():
+        return legacy
+    return primary
+
+
+DEFAULT_API_KEYS_FILE = _resolve_default_api_keys_file(ROOT)
+DEFAULT_IMAGE = "evobench-openhands:bachelor"
 
 
 def output_prefix_for_context(context_mode: str, root: Path = ROOT) -> Path:

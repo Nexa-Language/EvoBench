@@ -33,7 +33,7 @@ python src/main.py <子命令> ...
 
 2. 在 `data/YatCC/` 下准备 YatCC 源码（按课程/submodule 要求拉取；与镜像构建时复制进镜像的逻辑一致）。
 
-3. **密钥表**：默认使用仓库根 `_api_keys.local.md`（Markdown 表：名字、模型、Key、`base_url`；每行须含非空 `base_url`）。`launch` / `runner` 按 `--model` 选中行，用该行 **`base_url`** 作为 LLM 网关（写入 `metadata.json` 的 `api_base` 并注入容器）。
+3. **密钥表**：默认优先仓库根 `api_keys.local.md`，若不存在则使用 `_api_keys.local.md`（Markdown 表：名字、模型、Key、`base_url`；每行须含非空 `base_url`）。`launch` / `runner` 按 `--model` 选中行，用该行 **`base_url`** 作为 LLM 网关（写入 `metadata.json` 的 `api_base` 并注入容器）。
 
 4. **模型列表**：可选 `models.json`，与 `--all-models` 等配合使用。
 
@@ -93,7 +93,7 @@ python src/main.py launch --image evobench-openhands:latest --model mimo-v2.5-pr
 |------|------|
 | `--image` | **常规 launch 必填** Docker 镜像。 |
 | `--models-file` | 默认 `models.json`。 |
-| `--api-keys` | 默认 `_api_keys.local.md`。 |
+| `--api-keys` | 默认优先 `api_keys.local.md`，否则 `_api_keys.local.md`。 |
 | `--output-dir` | run 根目录，默认 `eval/container-runs`。 |
 | `--tasks` | 未在 spec 中写 tasks 时的默认范围，默认 `0-5`。 |
 | `--max-iterations` | 传入容器内 runner，默认 `200`。 |

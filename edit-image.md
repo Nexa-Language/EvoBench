@@ -40,7 +40,7 @@ docker commit \
 说明：
 
 - **备份标签**：便于回滚到修改前的镜像层。
-- **`docker commit`**：把容器的可写层固化为新镜像；镜像名/标签可按项目替换。
+- `**docker commit`**：把容器的可写层固化为新镜像；镜像名/标签可按项目替换。
 
 ---
 
@@ -57,3 +57,16 @@ docker rm -f evobench-openhands-fix
 - 修改应尽量可复现：长期维护更推荐改 `Dockerfile` 再 `docker build`，`commit` 适合应急修补或快速验证。
 - Windows PowerShell 下若需等价时间戳，可自行改用 `Get-Date -Format yyyyMMdd-HHmmss` 等生成标签后缀。
 - 提交前务必在容器内确认功能正常，避免把错误状态固化进新镜像。
+
+
+
+改名
+
+```
+# 1. 给现有镜像再加一个标签（同一套层、同一个 id）
+docker tag evobench-openhands:broken-openhands-20260513-140925 evobench-openhands:新名字
+
+# 2. 只去掉旧标签（若还有别的标签指向同一 id，不会删层）
+docker rmi evobench-openhands:broken-openhands-20260513-140925
+```
+
