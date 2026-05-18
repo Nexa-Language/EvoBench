@@ -8,7 +8,20 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from lib._agent_events import append_agent_event
-from lib._kimi_stream_json import kimi_stream_json_assistant_lines
+from lib._claude_usage import (
+    claude_jsonl_last_text,
+    claude_jsonl_usage_total,
+    claude_latest_session_jsonl,
+    claude_result_from_stdout,
+    claude_make_session_readable,
+    write_claude_usage_snapshot,
+)
+from lib._kimi_stream_json import (
+    kimi_session_id,
+    kimi_stream_json_assistant_lines,
+    kimi_wire_path,
+    kimi_wire_usage_total,
+)
 
 
 SUPPORTED_BACKENDS = ("openhands", "kimi", "claude", "codex")
@@ -111,6 +124,43 @@ def _run_command(
                     "message": out[-8000:],
                 },
             )
+    elif ctx.backend == "claude":
+        claude_home = ctx.output_dir / "agent-state" / "claude" / "claude"
+        usage = None
+        session_id = ""
+        display = (out or "").strip()
+        jsonl = claude_latest_session_jsonl(claude_home)
+        if jsonl is not None:
+            session_id = jsonl.stem
+            usage = claude_jsonl_usage_total(jsonl)
+            display = claude_jsonl_last_text(jsonl) or display
+        if usage is None and display.startswith("{"):
+            usage, display, session_id = claude_result_from_stdout(display)
+        if usage:
+            write_claude_usage_snapshot(
+                claude_home, task_id, usage, session_id=session_id, source_jsonl=jsonl
+            )
+            claude_make_session_readable(jsonl)
+            payload = {
+                "event_type": "llm_usage",
+                "backend": ctx.backend,
+                "task_id": task_id,
+                "usage_normalized": usage,
+            }
+            if session_id:
+                payload["claude_session_id"] = session_id
+            append_agent_event(event_path, payload)
+        if display.strip():
+            append_agent_event(
+                event_path,
+                {
+                    "event_type": "llm_response",
+                    "backend": ctx.backend,
+                    "task_id": task_id,
+                    "llm_response_id": str(uuid.uuid4()),
+                    "message": display,
+                },
+            )
     elif out:
         append_agent_event(
             event_path,
@@ -122,16 +172,30 @@ def _run_command(
                 "message": out[-8000:],
             },
         )
-    if proc.stderr:
+    stderr_text = proc.stderr or ""
+    if stderr_text:
         append_agent_event(
             event_path,
             {
                 "event_type": "agent_stderr",
                 "backend": ctx.backend,
                 "task_id": task_id,
-                "detail": proc.stderr[-8000:],
+                "detail": stderr_text[-8000:],
             },
         )
+    if ctx.backend == "kimi":
+        wire = kimi_wire_path(ctx.output_dir / "agent-state" / "kimi", kimi_session_id(stderr_text))
+        usage = kimi_wire_usage_total(wire) if wire else None
+        if usage:
+            append_agent_event(
+                event_path,
+                {
+                    "event_type": "llm_usage",
+                    "backend": ctx.backend,
+                    "task_id": task_id,
+                    "usage_normalized": usage,
+                },
+            )
     append_agent_event(
         event_path,
         {
@@ -169,36 +233,33 @@ def run_cli_backend_task(
         raise ValueError("OpenHands backend is handled by the OpenHands SDK runner")
     env = _base_env(ctx)
     if ctx.backend == "claude":
-        if shutil.which("cc-switch") is None:
-            raise RuntimeError("Claude backend 需要镜像内安装 cc-switch 以适配 OpenAI-compatible 协议")
         if shutil.which("claude") is None:
             raise RuntimeError("Claude backend 需要镜像内安装 Claude Code CLI: claude")
-        # Claude Code must reach OpenAI-compatible gateways through cc-switch.
+        # --bare uses ANTHROPIC_API_KEY + ANTHROPIC_BASE_URL (not OAuth / cc-switch GUI).
         env.update(
             {
+                "ANTHROPIC_API_KEY": ctx.api_key,
+                "ANTHROPIC_BASE_URL": ctx.api_base,
                 "ANTHROPIC_MODEL": ctx.model,
                 "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
                 "DISABLE_AUTOUPDATER": "1",
             }
         )
-        cc_home = ctx.output_dir / "agent-state" / "claude" / "cc-switch"
         claude_home = ctx.output_dir / "agent-state" / "claude" / "claude"
-        cc_home.mkdir(parents=True, exist_ok=True)
         claude_home.mkdir(parents=True, exist_ok=True)
-        env["CC_SWITCH_HOME"] = str(cc_home)
         env["CLAUDE_CONFIG_DIR"] = str(claude_home)
-        env["CC_SWITCH_OPENAI_BASE_URL"] = ctx.api_base
-        env["CC_SWITCH_OPENAI_API_KEY"] = ctx.api_key
-        env["CC_SWITCH_MODEL"] = ctx.model
+        step_cap = max(1, llm_step_budget) if llm_step_budget is not None else max(ctx.max_iterations, 1)
         command = [
             "claude",
             "--bare",
             "-p",
             prompt,
+            "--output-format",
+            "json",
             "--allowedTools",
             "Read,Edit,Write,Bash,Glob,Grep",
             "--max-turns",
-            str(max(ctx.max_iterations, 1)),
+            str(step_cap),
         ]
     elif ctx.backend == "codex":
         if shutil.which("codex") is None:

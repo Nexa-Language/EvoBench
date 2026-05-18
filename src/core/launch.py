@@ -169,6 +169,7 @@ def launch_one(
             _inner_command(spec, backend, max_iterations, context_mode, max_agent_hours),
         ]
     )
+    print(f"docker_cmd: {docker_cmd}")
     print(f"[启动] {spec.run_id} | model={spec.model} | tasks={spec.tasks} | key={key_entry.name}")
     proc = subprocess.run(docker_cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
     if proc.returncode != 0:

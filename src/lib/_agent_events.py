@@ -6,6 +6,14 @@ import time
 from pathlib import Path
 from typing import Any, Iterator
 
+from lib._claude_usage import (
+    claude_jsonl_for_session,
+    claude_jsonl_usage_total,
+    claude_session_jsonls,
+    read_claude_usage_snapshot,
+)
+from lib._kimi_stream_json import kimi_session_id, kimi_wire_path, kimi_wire_usage_total
+
 
 def append_agent_event(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -162,53 +170,11 @@ def _zero_usage() -> dict[str, int | float]:
     return {"prompt": 0, "completion": 0, "reasoning": 0, "cache_read": 0, "cache_write": 0, "cost": 0.0}
 
 
-def collect_llm_metrics_from_agent_events(run_dir: Path, context_mode: str) -> dict[str, Any]:
-    """当无 ``openhands-state`` 时，从 ``agent-events`` 中 Codex JSON 流解析 token（及可选费用）。"""
-    empty: dict[str, Any] = {}
-    root = run_dir / "agent-events"
-    if not root.is_dir():
-        return empty
-
-    run_acc = _zero_usage()
-    per_task: dict[int, dict[str, int | float]] = {i: _zero_usage() for i in range(6)}
-    hits = 0
-    cm = (context_mode or "").lower()
-
-    for path in sorted(root.glob("task*.jsonl")):
-        match = _TASK_JSONL_RE.match(path.name)
-        if not match:
-            continue
-        tid = int(match.group(1))
-        if not (0 <= tid <= 5):
-            continue
-        try:
-            raw = path.read_text(encoding="utf-8", errors="replace")
-        except OSError:
-            continue
-        for line in raw.splitlines():
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                obj = json.loads(line)
-            except json.JSONDecodeError:
-                continue
-            if not isinstance(obj, dict) or obj.get("event_type") != "llm_response":
-                continue
-            msg = obj.get("message")
-            if not isinstance(msg, str) or not msg.strip():
-                continue
-            for usage in _usage_rows_from_codex_json_message(msg):
-                snap = _snap_from_codex_usage(usage)
-                if snap is None:
-                    continue
-                hits += 1
-                _add_usage(run_acc, snap)
-                _add_usage(per_task[tid], snap)
-
-    if hits == 0:
-        return empty
-
+def _usage_row(
+    run_acc: dict[str, int | float],
+    per_task: dict[int, dict[str, int | float]],
+    context_mode: str,
+) -> dict[str, Any]:
     row: dict[str, Any] = {
         "llm_metrics_source": "agent-events",
         "llm_tokens_logged": True,
@@ -223,17 +189,99 @@ def collect_llm_metrics_from_agent_events(run_dir: Path, context_mode: str) -> d
     for i in range(6):
         row[f"task{i}_llm_total_tokens"] = ""
         row[f"task{i}_llm_cost_usd"] = ""
-
-    for tid in range(6):
-        acc = per_task[tid]
-        if _total_tokens(acc) or acc["cost"]:
-            row[f"task{tid}_llm_total_tokens"] = _total_tokens(acc)
-            row[f"task{tid}_llm_cost_usd"] = round(float(acc["cost"]), 6) if acc["cost"] else ""
-
-    if cm == "pipeline":
-        # 与 collect_llm_metrics(openhands) 一致：pipeline 不在各 task 列展开
+    if (context_mode or "").lower() != "pipeline":
         for tid in range(6):
-            row[f"task{tid}_llm_total_tokens"] = ""
-            row[f"task{tid}_llm_cost_usd"] = ""
-
+            acc = per_task[tid]
+            if _total_tokens(acc) or acc["cost"]:
+                row[f"task{tid}_llm_total_tokens"] = _total_tokens(acc)
+                row[f"task{tid}_llm_cost_usd"] = round(float(acc["cost"]), 6) if acc["cost"] else ""
     return row
+
+
+def collect_llm_metrics_from_agent_events(run_dir: Path, context_mode: str) -> dict[str, Any]:
+    """从 ``agent-events`` 汇总 token：Kimi ``llm_usage``、Codex JSON，或无事件时回读 wire.jsonl。"""
+    root = run_dir / "agent-events"
+    if not root.is_dir():
+        return {}
+    kimi_home = run_dir / "agent-state" / "kimi"
+    claude_home = run_dir / "agent-state" / "claude" / "claude"
+    claude_jsonls = claude_session_jsonls(claude_home)
+    claude_i = 0
+
+    run_acc = _zero_usage()
+    per_task = {i: _zero_usage() for i in range(6)}
+    hits = 0
+
+    for path in sorted(root.glob("task*.jsonl")):
+        match = _TASK_JSONL_RE.match(path.name)
+        if not match or not 0 <= int(match.group(1)) <= 5:
+            continue
+        tid = int(match.group(1))
+        session_id: str | None = None
+        claude_session_id: str | None = None
+        got_usage = False
+        try:
+            raw = path.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        for line in raw.splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                obj = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if not isinstance(obj, dict):
+                continue
+            et = obj.get("event_type")
+            if et == "llm_usage":
+                snap = obj.get("usage_normalized")
+                if isinstance(snap, dict):
+                    hits += 1
+                    got_usage = True
+                    _add_usage(run_acc, snap)
+                    _add_usage(per_task[tid], snap)
+                sid = obj.get("claude_session_id")
+                if isinstance(sid, str) and sid.strip():
+                    claude_session_id = sid.strip()
+                continue
+            if et == "agent_stderr":
+                session_id = kimi_session_id(str(obj.get("detail", ""))) or session_id
+                continue
+            if et != "llm_response":
+                continue
+            msg = obj.get("message")
+            if not isinstance(msg, str) or not msg.strip():
+                continue
+            for usage in _usage_rows_from_codex_json_message(msg):
+                snap = _snap_from_codex_usage(usage)
+                if snap is None:
+                    continue
+                hits += 1
+                _add_usage(run_acc, snap)
+                _add_usage(per_task[tid], snap)
+        if not got_usage and kimi_home.is_dir():
+            wire = kimi_wire_path(kimi_home, session_id)
+            snap = kimi_wire_usage_total(wire) if wire else None
+            if snap:
+                hits += 1
+                _add_usage(run_acc, snap)
+                _add_usage(per_task[tid], snap)
+        if not got_usage and claude_home.is_dir():
+            snap = read_claude_usage_snapshot(claude_home, tid)
+            if snap is None:
+                jsonl = (
+                    claude_jsonl_for_session(claude_home, claude_session_id or "")
+                    if claude_session_id
+                    else (claude_jsonls[claude_i] if claude_i < len(claude_jsonls) else None)
+                )
+                if claude_session_id is None and claude_i < len(claude_jsonls):
+                    claude_i += 1
+                snap = claude_jsonl_usage_total(jsonl) if jsonl else None
+            if snap:
+                hits += 1
+                _add_usage(run_acc, snap)
+                _add_usage(per_task[tid], snap)
+
+    return _usage_row(run_acc, per_task, context_mode) if hits else {}
