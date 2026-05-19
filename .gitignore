@@ -24,9 +24,11 @@ env/
 !.env.example
 
 # RAMP output (eval results stay in repo for leaderboard)
-eval/logs/
-eval/workspaces/
+eval_incre/logs/
+eval_incre/workspaces/
 eval_workspaces/
+RAMP-paper/
+eval_prog/
 
 # Build artifacts in data/YatCC
 data/YatCC/build/
@@ -70,7 +72,6 @@ AGENTS.md
 *.zip
 ramp_runner/
 plans/
-RAMP-paper/
 __pycache__/
 run_benchmark.py
 run_openhands.py
@@ -78,10 +79,10 @@ run_parallel_evals.sh
 eval_models.txt
 pyproject.toml
 ROADMAP.md-e
+evobench_runner/
 
 # Evaluation workspaces
 /home/agent/workspace/
 eval_workspaces/
-
-# Paper
-RAMP-paper/
+eval_incre/
+ramp_output
