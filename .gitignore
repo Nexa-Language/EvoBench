@@ -85,4 +85,6 @@ evobench_runner/
 /home/agent/workspace/
 eval_workspaces/
 eval_incre/
-ramp_output
+ramp_output/
+RAMP-Paper/
+RAMP-paper-old/
